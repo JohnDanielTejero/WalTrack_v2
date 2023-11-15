@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/menu_dashboard"
+            android:title="Dashboard"
+            android:icon="@drawable/dashboard_icon"
+            />
+        <item android:id="@+id/menu_expense"
+            android:title="Expense"
+            android:icon="@drawable/expense_icon"
+            />
+        <item android:id="@+id/menu_income"
+            android:icon="@drawable/income_icon"
+            android:title="Income"
+            />
+        <item android:id="@+id/menu_wallet"
+            android:title="Wallets"
+            android:icon="@drawable/wallet_icon"
+            />
+    </group>
+    <item android:title="Support">
+        <menu>
+            <item android:id="@+id/menu_share"
+                android:icon="@drawable/share_icon"
+                android:title="Share"/>
+            <item android:id="@+id/menu_donate"
+                android:icon="@drawable/donate_icon"
+                android:title="Donate"/>
+            <item android:id="@+id/menu_contribute"
+                android:icon="@drawable/contribute_icon"
+                android:title="Contribute"/>
+
+            <item android:id="@+id/menu_community"
+                android:icon="@drawable/discord_icon"
+                android:title="Community"/>
+
+        </menu>
+    </item>
+</menu>
