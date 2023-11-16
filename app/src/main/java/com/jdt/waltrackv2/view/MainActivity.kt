@@ -1,17 +1,27 @@
 package com.jdt.waltrackv2.view
 
-import android.graphics.drawable.ColorDrawable
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.databinding.ActivityMainBinding
 import com.jdt.waltrackv2.view.fragments.DashboardFragment
+import com.jdt.waltrackv2.view.fragments.ExpensesFragment
+import com.jdt.waltrackv2.view.fragments.IncomeFragment
+import com.jdt.waltrackv2.view.fragments.WalletFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,8 +31,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var actionBarDrawerToggle : ActionBarDrawerToggle
     private var selectedFragmentId: Int = 0
+    private lateinit var iconImageView: ImageView
+    private var lastBackPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    val currentTime = System.currentTimeMillis()
+                    val threshold = 2000
+
+                    if (currentTime - lastBackPressedTime < threshold) {
+                        finish()
+                    } else {
+                        lastBackPressedTime = currentTime
+                        Toast.makeText(this@MainActivity, "Press back again to exit", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+
+        // Register the callback with the OnBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(this, callback)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -30,14 +64,53 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.root
         navView = binding.navView
         toolbar = binding.toolbar
-
         setSupportActionBar(toolbar)
+
+        navView.setNavigationItemSelectedListener {
+
+            when (it.itemId) {
+                R.id.menu_dashboard -> {
+                    replaceFragment(DashboardFragment())
+                    supportActionBar?.title = "Dashboard"
+                    navView.setCheckedItem(R.id.menu_dashboard)
+                    selectedFragmentId = R.id.menu_dashboard
+                }
+
+                R.id.menu_expense -> {
+                    replaceFragment(ExpensesFragment())
+                    supportActionBar?.title = "Expense"
+                    navView.setCheckedItem(R.id.menu_expense)
+                    selectedFragmentId = R.id.menu_expense
+                }
+
+                R.id.menu_income -> {
+                    replaceFragment(IncomeFragment())
+                    supportActionBar?.title = "Income"
+                    navView.setCheckedItem(R.id.menu_income)
+                    selectedFragmentId = R.id.menu_income
+                }
+
+                R.id.menu_wallet -> {
+                    replaceFragment(WalletFragment())
+                    supportActionBar?.title = "Wallet"
+                    navView.setCheckedItem(R.id.menu_wallet)
+                    selectedFragmentId = R.id.menu_wallet
+                }
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
         actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        // Set the color of the hamburger icon
+
+        //val drawable = actionBarDrawerToggle.drawerArrowDrawable
+        //drawable.color = ContextCompat.getColor(this, R.color.white)
         val drawable = actionBarDrawerToggle.drawerArrowDrawable
-        drawable.color = ContextCompat.getColor(this, R.color.white)
+        val color = ContextCompat.getColor(this, R.color.white)
+        drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
+
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBar?.setHomeAsUpIndicator(drawable)
         actionBarDrawerToggle.syncState()
@@ -45,16 +118,69 @@ class MainActivity : AppCompatActivity() {
 
         selectedFragmentId = savedInstanceState?.getInt("selectedFragmentId") ?: R.id.menu_dashboard
         initializeFragment(selectedFragmentId)
+
+        iconImageView = binding.iconImageView
+        updateIcon(isDarkModeEnabled())
+        iconImageView.setOnClickListener { onIconClick() }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("selectedFragmentId", selectedFragmentId)
+    }
+
+
+    private fun onIconClick() {
+        // Toggle the night mode
+        val newMode = !isDarkModeEnabled()
+
+        // Set the new night mode
+        AppCompatDelegate.setDefaultNightMode(if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+
+        // Update the icon
+        updateIcon(newMode)
+
+        // Recreate the activity to apply the new theme immediately
+        recreate()
+    }
+    private fun updateIcon(isDarkMode: Boolean) {
+        iconImageView.setImageResource(if (isDarkMode) R.drawable.ic_dark_mode else R.drawable.ic_light_mode)
+    }
+    private fun isDarkModeEnabled(): Boolean {
+        val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        return currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
+    }
     private fun initializeFragment(fragmentId: Int){
         var fragment: Fragment? = null
-        if (fragmentId == R.id.menu_dashboard) {
-            fragment = DashboardFragment()
-            supportActionBar?.title = "Dashboard"
-            navView.setCheckedItem(R.id.menu_dashboard)
-        }
+        when (fragmentId) {
+            R.id.menu_dashboard -> {
+                fragment = DashboardFragment()
+                supportActionBar?.title = "Dashboard"
+                navView.setCheckedItem(R.id.menu_dashboard)
+                selectedFragmentId = R.id.menu_dashboard
+            }
 
+            R.id.menu_expense -> {
+                fragment = ExpensesFragment()
+                supportActionBar?.title = "Expense"
+                navView.setCheckedItem(R.id.menu_expense)
+                selectedFragmentId = R.id.menu_expense
+            }
+
+            R.id.menu_income -> {
+                fragment = IncomeFragment()
+                supportActionBar?.title = "Income"
+                navView.setCheckedItem(R.id.menu_income)
+                selectedFragmentId = R.id.menu_income
+            }
+
+            R.id.menu_wallet -> {
+                fragment = WalletFragment()
+                supportActionBar?.title = "Wallet"
+                navView.setCheckedItem(R.id.menu_wallet)
+                selectedFragmentId = R.id.menu_wallet
+            }
+        }
         fragment?.let { replaceFragment(it) }
     }
 
@@ -63,10 +189,6 @@ class MainActivity : AppCompatActivity() {
         val ft = fm.beginTransaction()
         ft.replace(binding.navHostFragmentContainer.id, f)
         ft.commit()
-    }
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt("selectedFragmentId", selectedFragmentId)
     }
 
 }

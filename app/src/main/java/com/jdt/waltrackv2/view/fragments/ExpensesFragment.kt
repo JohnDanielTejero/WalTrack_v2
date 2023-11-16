@@ -1,11 +1,20 @@
 package com.jdt.waltrackv2.view.fragments
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButton
 import com.jdt.waltrackv2.R
+import com.jdt.waltrackv2.databinding.FilterLayoutBinding
+import com.jdt.waltrackv2.databinding.FragmentExpensesBinding
+import com.jdt.waltrackv2.utils.FilterHandler
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +30,10 @@ class ExpensesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var binding: FragmentExpensesBinding
+    private lateinit var filterLayoutBinding: FilterLayoutBinding
+    private var isFilterToggled: Boolean = false
+    private lateinit var filterHandler: FilterHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +46,22 @@ class ExpensesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expenses, container, false)
+    ): View {
+        binding = FragmentExpensesBinding.inflate(inflater, container, false)
+        filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Access the filter views through the main fragment binding
+        val filterButton: MaterialButton = filterLayoutBinding.filterButton
+        val filterDisplay: ConstraintLayout = filterLayoutBinding.filterDisplay
+
+        // Initialize FilterHandler with the filterButton and filterDisplay
+        filterHandler = FilterHandler(filterButton, filterDisplay, requireContext())
+
     }
 
     companion object {

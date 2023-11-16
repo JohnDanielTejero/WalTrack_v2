@@ -26,4 +26,10 @@
         <item name="android:textColorPrimary">?customTitleColor</item>
     </style>
 
+    <style name="OutlinedBoxCustomStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">?customTitleColor</item>
+        <item name="endIconTint">@drawable/selector_dropdown_icon</item>
+        <item name="hintTextColor">?customTitleColor</item>
+    </style>
+
 </resources>

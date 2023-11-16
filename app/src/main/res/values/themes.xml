@@ -16,7 +16,7 @@
         <item name="formShadow">?colorPrimary</item>
         <item name="customTitleColor">?colorPrimary</item>
         <item name="customTitleColorAlt">?colorPrimary</item>
-        <item name="customRippleBgColor">#F3F3F3</item>
+        <item name="customRippleBgColor">#fafafa</item>
         <item name="customRippleColorAlt">@color/ripple_bg_light</item>
         <item name="customBackdropGradient">?colorSecondary</item>
         <item name="customButtonShade">?colorOnPrimary</item>
@@ -38,7 +38,7 @@
         <item name="formShadow">?colorPrimary</item>
         <item name="customTitleColor">?colorPrimary</item>
         <item name="customTitleColorAlt">?colorPrimary</item>
-        <item name="customRippleBgColor">#F3F3F3</item>
+        <item name="customRippleBgColor">#fafafa</item>
         <item name="customRippleColorAlt">@color/ripple_bg_light</item>
         <item name="customBackdropGradient">?colorSecondary</item>
         <item name="customButtonShade">?colorOnPrimary</item>

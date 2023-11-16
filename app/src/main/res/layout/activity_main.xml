@@ -8,37 +8,52 @@
     tools:context=".view.MainActivity"
     tools:openDrawer="start"
     >
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        app:headerLayout="@layout/nav_header_main"
-        android:layout_height="match_parent"
-        android:id="@+id/nav_view"
-        app:menu="@menu/menu_dialog"
-        app:itemTextColor="?customTitleColor"
-        app:itemIconTint="?customTitleColor"
-        android:layout_gravity="start"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            app:titleTextColor="@color/white"
-
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/toolbar_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
-            android:background="?colorPrimary"/>
+            app:layout_constraintVertical_bias="0">
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    app:titleTextColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+                    android:background="?colorPrimary">
+                    <FrameLayout
+                        android:layout_width="30sp"
+                        android:layout_height="30sp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp">
+                        <ImageView
+                            app:tint="@color/white"
+                            android:id="@+id/iconImageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:src="@drawable/ic_light_mode" />
+                    </FrameLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/nav_host_fragment_container"
+            android:id="@+id/navHostFragmentContainer"
             android:name="androidx.navigation.fragment.NavHostFragment"
             app:defaultNavHost="true"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_container"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,5 +63,16 @@
             app:navGraph = "@navigation/nav_graph"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        app:headerLayout="@layout/nav_header_main"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_view"
+        app:menu="@menu/menu_dialog"
+        app:subheaderColor="?customTitleColor"
+        app:itemTextAppearance="?customTitleColor"
+        app:itemRippleColor="?customRippleColorAlt"
+        app:itemTextColor="?customTitleColor"
+        app:itemIconTint="?customTitleColor"
+        android:layout_gravity="start"/>
 </androidx.drawerlayout.widget.DrawerLayout>

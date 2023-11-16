@@ -1,14 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10sp"
     tools:context=".view.fragments.IncomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/income_balance_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="100sp"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginVertical="5sp">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/income_balance_display_placeholder"
+            app:shimmer_shape="linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/placeholder_total"/>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <LinearLayout
+            android:id="@+id/income_balance_display_data"
+            android:visibility="gone"
+            android:clickable="true"
+            android:background="@drawable/display_ripple_click"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-</FrameLayout>
+            <TextView
+                android:textColor="?customTitleColor"
+                android:layout_marginHorizontal="5sp"
+                android:textSize="10sp"
+                android:textAllCaps="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Income"/>
+            <TextView
+                android:id="@+id/income_total_balance_display"
+                android:textColor="?customTitleColor"
+                android:layout_marginHorizontal="5sp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Php 0.00"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginHorizontal="10sp"
+        android:id="@+id/filter_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10sp"
+        app:layout_constraintBottom_toTopOf="@id/income_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/income_balance_display"
+        app:layout_constraintVertical_bias="0">
+        <include layout="@layout/filter_layout"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_margin="10sp"
+        android:id="@+id/income_title"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@id/filter_option"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/income_listing"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0"
+        android:textColor="?customTitleColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Income"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/income_listing"
+        app:layout_constraintTop_toBottomOf="@id/income_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

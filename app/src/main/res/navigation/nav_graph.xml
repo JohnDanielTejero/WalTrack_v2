@@ -10,4 +10,15 @@
         android:name="com.jdt.waltrackv2.view.fragments.DashboardFragment"
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/expense_fragment"
+        android:name="com.jdt.waltrackv2.view.fragments.ExpensesFragment"
+        android:label="ExpensesFragment"
+        tools:layout="@layout/fragment_expenses" />
+    <fragment
+        android:id="@+id/income_fragment"
+        android:name="com.jdt.waltrackv2.view.fragments.IncomeFragment"
+        android:label="IncomeFragment"
+        tools:layout="@layout/fragment_income" />
+
 </navigation>
