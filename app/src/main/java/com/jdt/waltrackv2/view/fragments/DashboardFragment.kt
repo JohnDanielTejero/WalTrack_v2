@@ -10,9 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
-import com.jdt.waltrackv2.databinding.DataBalanceDisplayDataBinding
-import com.jdt.waltrackv2.databinding.DataExpenseDisplayDataBinding
-import com.jdt.waltrackv2.databinding.DataIncomeDisplayDataBinding
+import com.jdt.waltrackv2.databinding.DashboardBalanceDisplayBinding
+import com.jdt.waltrackv2.databinding.DashboardIncomeDisplayBinding
+import com.jdt.waltrackv2.databinding.DashboardExpsenseDisplayBinding
 import com.jdt.waltrackv2.databinding.FragmentDashboardBinding
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.utils.RenderElementHandler
@@ -37,9 +37,9 @@ class DashboardFragment : Fragment() {
     private lateinit var binding: FragmentDashboardBinding
 
     //data to be displayed at the top:
-    private lateinit var dataBalance: DataBalanceDisplayDataBinding
-    private  lateinit var dataExpense: DataExpenseDisplayDataBinding
-    private lateinit var dataIncome: DataIncomeDisplayDataBinding
+    private lateinit var dataBalance: DashboardBalanceDisplayBinding
+    private  lateinit var dataExpense: DashboardExpsenseDisplayBinding
+    private lateinit var dataIncome: DashboardIncomeDisplayBinding
 
     //shimmering to be created
     private lateinit var balancePlaceholder: BalanceShimmerPlaceholderBinding
@@ -116,9 +116,9 @@ class DashboardFragment : Fragment() {
                 val inflater = LayoutInflater.from(requireContext())
                 //inflating data
                 dataBalance =
-                    DataBalanceDisplayDataBinding.inflate(inflater, binding.balanceDisplay, true)
-                dataExpense = DataExpenseDisplayDataBinding.inflate(inflater, binding.expenseDisplay, true)
-                dataIncome = DataIncomeDisplayDataBinding.inflate(inflater, binding.incomeDisplay, true)
+                    DashboardBalanceDisplayBinding.inflate(inflater, binding.balanceDisplay, true)
+                dataExpense = DashboardExpsenseDisplayBinding.inflate(inflater, binding.expenseDisplay, true)
+                dataIncome = DashboardIncomeDisplayBinding.inflate(inflater, binding.incomeDisplay, true)
                 Log.d("DashboardFragment", "Stopped shimmer, adding actual data")
 
                 // Stop shimmer animation

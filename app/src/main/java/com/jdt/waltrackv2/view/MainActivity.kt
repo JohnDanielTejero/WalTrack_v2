@@ -136,16 +136,9 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
     private fun onIconClick() {
         if(!isLoading!!){
 
-            // Toggle the night mode
             val newMode = !isDarkModeEnabled()
-
-            // Set the new night mode
             AppCompatDelegate.setDefaultNightMode(if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
-
-            // Update the icon
             updateIcon(newMode)
-
-            // Recreate the activity to apply the new theme immediately
             recreate()
         }
     }
