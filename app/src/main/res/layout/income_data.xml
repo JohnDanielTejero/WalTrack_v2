@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/income_balance_display_data"
+    android:clickable="true"
+    android:background="@drawable/display_ripple_click"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:textColor="?customTitleColor"
+        android:layout_marginHorizontal="5sp"
+        android:textSize="10sp"
+        android:textAllCaps="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Income"/>
+    <TextView
+        android:id="@+id/income_total_balance_display"
+        android:textColor="?customTitleColor"
+        android:layout_marginHorizontal="5sp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Php 0.00"/>
+</LinearLayout>

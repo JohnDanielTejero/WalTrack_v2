@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jdt.waltrackv2.R
+import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
 import com.jdt.waltrackv2.databinding.FragmentWalletBinding
 import com.jdt.waltrackv2.utils.FilterHandler
+import com.jdt.waltrackv2.utils.OnDataLoading
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -22,6 +24,7 @@ private const val ARG_PARAM2 = "param2"
 class WalletFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+
     private lateinit var binding : FragmentWalletBinding
     private lateinit var layoutWalletVerBinding: FilterLayoutWalletVerBinding
     private lateinit var filterHandler: FilterHandler
@@ -36,7 +39,7 @@ class WalletFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentWalletBinding.inflate(inflater, container, false)
         layoutWalletVerBinding = FilterLayoutWalletVerBinding.inflate(inflater, binding.filterOption, true)
         return binding.root
@@ -44,7 +47,9 @@ class WalletFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         filterHandler = FilterHandler(layoutWalletVerBinding.filterButton, layoutWalletVerBinding.filterDisplay, requireContext())
+
     }
     companion object {
         /**

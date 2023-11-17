@@ -25,41 +25,7 @@
                 android:layout_height="100sp"
                 android:layout_marginHorizontal="10sp"
                 android:layout_marginVertical="5sp">
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/balance_display_placeholder"
-                    app:shimmer_shape="linear"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <include layout="@layout/placeholder_total"/>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-                <LinearLayout
-                    android:id="@+id/balance_display_data"
-                    android:visibility="gone"
-                    android:clickable="true"
-                    android:background="@drawable/display_ripple_click"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
 
-                    <TextView
-                        android:textColor="?customTitleColor"
-                        android:layout_marginHorizontal="5sp"
-                        android:textSize="10sp"
-                        android:textAllCaps="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Balance"/>
-                    <TextView
-                        android:id="@+id/total_balance_display"
-                        android:textColor="?customTitleColor"
-                        android:layout_marginHorizontal="5sp"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Php 0.00"/>
-                </LinearLayout>
             </RelativeLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,61 +48,7 @@
                     android:layout_width="0dp"
                     android:layout_marginEnd="2.5sp"
                     android:layout_height="match_parent">
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/income_display_placeholder"
-                        app:shimmer_shape="linear"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <include layout="@layout/placeholder_total"/>
-                    </com.facebook.shimmer.ShimmerFrameLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:visibility="gone"
-                        android:id="@+id/income_display_data"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/display_ripple_click"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintVertical_bias="0.03"
-                            app:layout_constraintHorizontal_bias="0.977"
-                            android:alpha="0.4"
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            android:src="@drawable/incoming_money_icon"/>
-                        <TextView
-                            android:id="@+id/total_income_title"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintVertical_bias="0.45"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            android:textSize="10sp"
-                            android:textColor="?customTitleColor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Income"/>
-                        <TextView
-                            app:layout_constraintTop_toBottomOf="@id/total_income_title"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintVertical_bias="0.01"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            android:id="@+id/total_income_display"
-                            android:textStyle="bold"
-                            android:textColor="?customTitleColor"
-                            android:textSize="15sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+Php 0.00"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -148,61 +60,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/expense_display">
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/expense_display_placeholder"
-                        app:shimmer_shape="linear"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <include layout="@layout/placeholder_total"/>
-                    </com.facebook.shimmer.ShimmerFrameLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:visibility="gone"
-                        android:id="@+id/expense_display_data"
-                        android:clickable="true"
-                        android:gravity="center"
-                        android:background="@drawable/display_ripple_click"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:alpha="0.4"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintVertical_bias="0.03"
-                            app:layout_constraintHorizontal_bias="0.977"
-                            android:layout_width="30sp"
-                            android:layout_height="30sp"
-                            android:src="@drawable/outgoing_money_icon"/>
-                        <TextView
-                            android:id="@+id/total_expense_title"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintVertical_bias="0.45"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            android:textSize="10sp"
-                            android:textColor="?customTitleColor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Total Expenses"/>
-                        <TextView
-                            app:layout_constraintTop_toBottomOf="@id/total_expense_title"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintVertical_bias="0.01"
-                            app:layout_constraintHorizontal_bias="0.1"
-                            android:id="@+id/total_expense_display"
-                            android:textStyle="bold"
-                            android:textColor="?customTitleColor"
-                            android:textSize="15sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="-Php 0.00"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </RelativeLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

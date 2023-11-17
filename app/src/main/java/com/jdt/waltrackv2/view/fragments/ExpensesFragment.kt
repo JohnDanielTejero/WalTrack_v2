@@ -2,21 +2,22 @@ package com.jdt.waltrackv2.view.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.material.button.MaterialButton
-import com.jdt.waltrackv2.R
+import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
+import com.jdt.waltrackv2.databinding.ExpenseDataBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutBinding
 import com.jdt.waltrackv2.databinding.FragmentExpensesBinding
 import com.jdt.waltrackv2.utils.FilterHandler
+import com.jdt.waltrackv2.utils.OnDataLoading
+import com.jdt.waltrackv2.utils.RenderElementHandler
 
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -27,12 +28,19 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ExpensesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
+
+    private var dataLoadingListener: OnDataLoading? = null
+
     private lateinit var binding: FragmentExpensesBinding
     private lateinit var filterLayoutBinding: FilterLayoutBinding
     private var isFilterToggled: Boolean = false
+
+    private lateinit var shimmerPlaceholderBinding : BalanceShimmerPlaceholderBinding
+    private lateinit var expenseDisplayDataBinding: ExpenseDataBinding
+
     private lateinit var filterHandler: FilterHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,27 +51,51 @@ class ExpensesFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnDataLoading) {
+            dataLoadingListener = context
+        } else {
+            throw RuntimeException("$context must implement DataLoadingListener")
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentExpensesBinding.inflate(inflater, container, false)
-        filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)
+        shimmerPlaceholderBinding = BalanceShimmerPlaceholderBinding.inflate(inflater, binding.expenseBalanceDisplay, true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dataLoadingListener?.onDataLoadingStarted()
+        RenderElementHandler.initPlaceholders {
+            binding.expenseBalanceDisplay.addView(shimmerPlaceholderBinding.root)
+        }
+        //simulate data retrieval
+        Handler(Looper.getMainLooper()).postDelayed({
+            activity?.let {
+                val inflater = LayoutInflater.from(requireContext())
+                filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)
+                expenseDisplayDataBinding = ExpenseDataBinding.inflate(inflater, binding.expenseBalanceDisplay, true)
 
-        // Access the filter views through the main fragment binding
-        val filterButton: MaterialButton = filterLayoutBinding.filterButton
-        val filterDisplay: ConstraintLayout = filterLayoutBinding.filterDisplay
+                RenderElementHandler.removePlaceholders {
+                    Log.d("RenderElement", "removing placeholder event")
+                    //remove shimmer
+                    binding.expenseBalanceDisplay.removeView(shimmerPlaceholderBinding.root)
+                }
+            }
 
-        // Initialize FilterHandler with the filterButton and filterDisplay
-        filterHandler = FilterHandler(filterButton, filterDisplay, requireContext())
+            filterHandler = FilterHandler(filterLayoutBinding.filterButton,
+                filterLayoutBinding.filterDisplay, requireContext())
 
+            //TODO: Add data
+            expenseDisplayDataBinding.expenseTotalBalanceDisplay.text = "Php 300.00"
+            dataLoadingListener?.onDataLoadingFinished()
+        }, 3000)
     }
-
     companion object {
         /**
          * Use this factory method to create a new instance of

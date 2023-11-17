@@ -1,6 +1,7 @@
 package com.jdt.waltrackv2.utils
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,6 +14,7 @@ class FilterHandler(private val filterButton: MaterialButton, private val filter
 
     init {
         filterButton.setOnClickListener {
+            Log.d("FilterHandler", "filter is clicked")
             isFilterToggled = !isFilterToggled
             updateFilter(context)
         }

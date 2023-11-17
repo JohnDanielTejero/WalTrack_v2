@@ -17,19 +17,22 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.databinding.ActivityMainBinding
+import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.view.fragments.DashboardFragment
 import com.jdt.waltrackv2.view.fragments.ExpensesFragment
 import com.jdt.waltrackv2.view.fragments.IncomeFragment
 import com.jdt.waltrackv2.view.fragments.WalletFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnDataLoading {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navView : NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
     private lateinit var actionBarDrawerToggle : ActionBarDrawerToggle
+    private var isLoading : Boolean? = false
+    private var currentFragment: Fragment? = null
     private var selectedFragmentId: Int = 0
     private lateinit var iconImageView: ImageView
     private var lastBackPressedTime: Long = 0
@@ -131,17 +134,20 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun onIconClick() {
-        // Toggle the night mode
-        val newMode = !isDarkModeEnabled()
+        if(!isLoading!!){
 
-        // Set the new night mode
-        AppCompatDelegate.setDefaultNightMode(if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+            // Toggle the night mode
+            val newMode = !isDarkModeEnabled()
 
-        // Update the icon
-        updateIcon(newMode)
+            // Set the new night mode
+            AppCompatDelegate.setDefaultNightMode(if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
 
-        // Recreate the activity to apply the new theme immediately
-        recreate()
+            // Update the icon
+            updateIcon(newMode)
+
+            // Recreate the activity to apply the new theme immediately
+            recreate()
+        }
     }
     private fun updateIcon(isDarkMode: Boolean) {
         iconImageView.setImageResource(if (isDarkMode) R.drawable.ic_dark_mode else R.drawable.ic_light_mode)
@@ -154,34 +160,44 @@ class MainActivity : AppCompatActivity() {
         var fragment: Fragment? = null
         when (fragmentId) {
             R.id.menu_dashboard -> {
-                fragment = DashboardFragment()
-                supportActionBar?.title = "Dashboard"
-                navView.setCheckedItem(R.id.menu_dashboard)
-                selectedFragmentId = R.id.menu_dashboard
+                if (currentFragment !is DashboardFragment) {
+                    fragment = DashboardFragment()
+                    supportActionBar?.title = "Dashboard"
+                    navView.setCheckedItem(R.id.menu_dashboard)
+                    selectedFragmentId = R.id.menu_dashboard
+                }
             }
 
             R.id.menu_expense -> {
-                fragment = ExpensesFragment()
-                supportActionBar?.title = "Expense"
-                navView.setCheckedItem(R.id.menu_expense)
-                selectedFragmentId = R.id.menu_expense
+                if (currentFragment !is ExpensesFragment) {
+                    fragment = ExpensesFragment()
+                    supportActionBar?.title = "Expense"
+                    navView.setCheckedItem(R.id.menu_expense)
+                    selectedFragmentId = R.id.menu_expense
+                }
             }
 
             R.id.menu_income -> {
-                fragment = IncomeFragment()
-                supportActionBar?.title = "Income"
-                navView.setCheckedItem(R.id.menu_income)
-                selectedFragmentId = R.id.menu_income
+                if (currentFragment !is IncomeFragment) {
+                    fragment = IncomeFragment()
+                    supportActionBar?.title = "Income"
+                    navView.setCheckedItem(R.id.menu_income)
+                    selectedFragmentId = R.id.menu_income
+                }
             }
 
             R.id.menu_wallet -> {
-                fragment = WalletFragment()
-                supportActionBar?.title = "Wallet"
-                navView.setCheckedItem(R.id.menu_wallet)
-                selectedFragmentId = R.id.menu_wallet
+                if (currentFragment !is WalletFragment) {
+                    fragment = WalletFragment()
+                    supportActionBar?.title = "Wallet"
+                    navView.setCheckedItem(R.id.menu_wallet)
+                    selectedFragmentId = R.id.menu_wallet
+                }
             }
         }
-        fragment?.let { replaceFragment(it) }
+        fragment?.let {
+            replaceFragment(it)
+        }
     }
 
     private fun replaceFragment(f: Fragment){
@@ -189,6 +205,24 @@ class MainActivity : AppCompatActivity() {
         val ft = fm.beginTransaction()
         ft.replace(binding.navHostFragmentContainer.id, f)
         ft.commit()
+        supportFragmentManager.executePendingTransactions()
+        currentFragment = f
+    }
+
+    override fun onDataLoadingStarted() {
+        isLoading = true
+        navView?.menu?.findItem(R.id.menu_dashboard)?.isEnabled = false
+        navView?.menu?.findItem(R.id.menu_expense)?.isEnabled = false
+        navView?.menu?.findItem(R.id.menu_income)?.isEnabled = false
+        navView?.menu?.findItem(R.id.menu_wallet)?.isEnabled = false
+    }
+
+    override fun onDataLoadingFinished() {
+        isLoading = false
+        navView?.menu?.findItem(R.id.menu_dashboard)?.isEnabled = true
+        navView?.menu?.findItem(R.id.menu_expense)?.isEnabled = true
+        navView?.menu?.findItem(R.id.menu_income)?.isEnabled = true
+        navView?.menu?.findItem(R.id.menu_wallet)?.isEnabled = true
     }
 
 }

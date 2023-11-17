@@ -18,8 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wallet_title"
         app:layout_constraintVertical_bias="0">
-
-        <include layout="@layout/filter_layout_wallet_ver" />
     </RelativeLayout>
     <TextView
         android:layout_margin="10sp"

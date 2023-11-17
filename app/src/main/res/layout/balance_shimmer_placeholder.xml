@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/balance_display_placeholder"
+    app:shimmer_shape="linear"
+    android:layout_height="match_parent">
+    <include layout="@layout/placeholder_total"/>
+</com.facebook.shimmer.ShimmerFrameLayout>
