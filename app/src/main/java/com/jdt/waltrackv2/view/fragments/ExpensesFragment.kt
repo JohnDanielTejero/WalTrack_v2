@@ -1,6 +1,7 @@
 package com.jdt.waltrackv2.view.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,13 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.jdt.waltrackv2.databinding.AddItemLayoutBinding
 import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
 import com.jdt.waltrackv2.databinding.ExpenseDataBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutBinding
 import com.jdt.waltrackv2.databinding.FragmentExpensesBinding
+import com.jdt.waltrackv2.utils.AddItemHandler
 import com.jdt.waltrackv2.utils.FilterHandler
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.utils.RenderElementHandler
+import com.jdt.waltrackv2.view.TransactionAddActivity
 
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,8 +45,10 @@ class ExpensesFragment : Fragment() {
 
     private lateinit var shimmerPlaceholderBinding : BalanceShimmerPlaceholderBinding
     private lateinit var expenseDisplayDataBinding: ExpenseDataBinding
+    private lateinit var addItemButton: AddItemLayoutBinding
 
     private lateinit var filterHandler: FilterHandler
+    private  lateinit var addItemHandler: AddItemHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +87,7 @@ class ExpensesFragment : Fragment() {
                 val inflater = LayoutInflater.from(requireContext())
                 filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)
                 expenseDisplayDataBinding = ExpenseDataBinding.inflate(inflater, binding.expenseBalanceDisplay, true)
-
+                addItemButton = AddItemLayoutBinding.inflate(inflater, binding.addItemContainer, true)
                 RenderElementHandler.removePlaceholders {
                     Log.d("RenderElement", "removing placeholder event")
                     //remove shimmer
@@ -91,6 +98,7 @@ class ExpensesFragment : Fragment() {
             filterHandler = FilterHandler(filterLayoutBinding.filterButton,
                 filterLayoutBinding.filterDisplay, requireContext())
 
+            addItemHandler = AddItemHandler(addItemButton.root, Intent(requireContext(), TransactionAddActivity::class.java), requireActivity())
             //TODO: Add data
             expenseDisplayDataBinding.expenseTotalBalanceDisplay.text = "Php 300.00"
             dataLoadingListener?.onDataLoadingFinished()
@@ -105,7 +113,6 @@ class ExpensesFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment ExpensesFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ExpensesFragment().apply {

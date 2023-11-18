@@ -1,16 +1,20 @@
 package com.jdt.waltrackv2.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jdt.waltrackv2.R
+import com.jdt.waltrackv2.databinding.AddItemLayoutBinding
 import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
 import com.jdt.waltrackv2.databinding.FragmentWalletBinding
+import com.jdt.waltrackv2.utils.AddItemHandler
 import com.jdt.waltrackv2.utils.FilterHandler
 import com.jdt.waltrackv2.utils.OnDataLoading
+import com.jdt.waltrackv2.view.AddWalletActivity
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -27,6 +31,9 @@ class WalletFragment : Fragment() {
 
     private lateinit var binding : FragmentWalletBinding
     private lateinit var layoutWalletVerBinding: FilterLayoutWalletVerBinding
+    private lateinit var addItemLayoutBinding: AddItemLayoutBinding
+
+    private lateinit var addItemHandler: AddItemHandler
     private lateinit var filterHandler: FilterHandler
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +49,7 @@ class WalletFragment : Fragment() {
     ): View {
         binding = FragmentWalletBinding.inflate(inflater, container, false)
         layoutWalletVerBinding = FilterLayoutWalletVerBinding.inflate(inflater, binding.filterOption, true)
+        addItemLayoutBinding = AddItemLayoutBinding.inflate(inflater, binding.addItemContainer, true)
         return binding.root
     }
 
@@ -49,7 +57,9 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         filterHandler = FilterHandler(layoutWalletVerBinding.filterButton, layoutWalletVerBinding.filterDisplay, requireContext())
-
+        addItemHandler = AddItemHandler(addItemLayoutBinding.root,
+            Intent(requireContext(), AddWalletActivity::class.java),
+            requireActivity())
     }
     companion object {
         /**
