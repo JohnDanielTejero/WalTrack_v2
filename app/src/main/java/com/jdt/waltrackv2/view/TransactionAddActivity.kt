@@ -1,20 +1,21 @@
 package com.jdt.waltrackv2.view
 
 import android.app.Activity
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import com.jdt.waltrackv2.adapters.setupDropdownAdapter
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.databinding.ActivityTransactionAddBinding
+import com.jdt.waltrackv2.databinding.DropdownItemBinding
 
 class TransactionAddActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityTransactionAddBinding
+    private lateinit var dropdownItemBinding: DropdownItemBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTransactionAddBinding.inflate(layoutInflater)
@@ -41,6 +42,16 @@ class TransactionAddActivity : AppCompatActivity() {
         removeKeyboardDisplayForCustomSpinner(binding.transactionType)
         removeKeyboardDisplayForCustomSpinner(binding.transactionCategory)
 
+        binding.transactionType.setupDropdownAdapter(
+            this, R.layout.dropdown_item,
+            resources.getStringArray(R.array.transaction_type)
+        )
+
+        binding.transactionCategory.setupDropdownAdapter(
+            this,
+            R.layout.dropdown_item,
+            resources.getStringArray(R.array.transaction_tags)
+        )
     }
 
     private fun removeKeyboardDisplayForCustomSpinner(v: AutoCompleteTextView){

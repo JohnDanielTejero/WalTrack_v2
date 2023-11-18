@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filter_year_dropdown_container"
                 android:hint="Year"
                 style="@style/OutlinedBoxCustomStyle"
                 android:layout_width="0dp"
@@ -43,6 +44,7 @@
                 android:layout_marginEnd="2.5sp"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
+                    android:textSize="9sp"
                     android:id="@+id/filter_year_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -53,6 +55,7 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filter_month_dropdown_container"
                 android:hint="Month"
                 android:enabled="false"
                 android:layout_weight="1"
@@ -61,6 +64,7 @@
                 android:layout_marginHorizontal="2.5sp"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
+                    android:textSize="9sp"
                     android:id="@+id/filter_month_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -71,6 +75,7 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filter_day_dropdown_container"
                 android:hint="Day"
                 android:enabled="false"
                 android:layout_marginStart="2.5sp"
@@ -79,6 +84,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
+                    android:textSize="9sp"
                     android:id="@+id/filter_day_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

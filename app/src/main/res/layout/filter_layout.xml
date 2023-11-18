@@ -63,23 +63,24 @@
             android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputLayout
                 android:hint="Year"
+                android:id="@+id/filter_year_dropdown_container"
                 style="@style/OutlinedBoxCustomStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginEnd="2.5sp"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
+                    android:textSize="9sp"
+                    android:text="All"
                     android:id="@+id/filter_year_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="All"
-                    android:inputType="none"
-
-                    />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:hint="Month"
+                android:id="@+id/filter_month_dropdown_container"
                 android:enabled="false"
                 android:layout_weight="1"
                 style="@style/OutlinedBoxCustomStyle"
@@ -87,17 +88,19 @@
                 android:layout_marginHorizontal="2.5sp"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
+                    android:textSize="9sp"
+                    android:text="All"
                     android:id="@+id/filter_month_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="All"
                     android:inputType="none"
 
                     />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:hint="Day"
+                android:id="@+id/filter_day_dropdown_container"
                 android:enabled="false"
                 android:layout_marginStart="2.5sp"
                 style="@style/OutlinedBoxCustomStyle"
@@ -105,11 +108,12 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
+                    android:textSize="9sp"
+                    android:text="All"
                     android:id="@+id/filter_day_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="All"
                     android:inputType="none"
 
                     />

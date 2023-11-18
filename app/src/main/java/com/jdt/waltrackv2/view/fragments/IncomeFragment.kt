@@ -100,7 +100,7 @@ class IncomeFragment : Fragment() {
                 Intent(requireContext(), TransactionAddActivity::class.java),
                 requireActivity()
             )
-            filterHandler = FilterHandler(filterLayoutBinding.filterButton, filterLayoutBinding.filterDisplay, requireContext())
+            filterHandler = FilterHandler(filterLayoutBinding, requireContext())
             dataLoadingListener.onDataLoadingFinished()
         }, 3000)
     }

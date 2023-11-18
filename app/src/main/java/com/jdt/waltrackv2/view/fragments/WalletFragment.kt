@@ -13,6 +13,7 @@ import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
 import com.jdt.waltrackv2.databinding.FragmentWalletBinding
 import com.jdt.waltrackv2.utils.AddItemHandler
 import com.jdt.waltrackv2.utils.FilterHandler
+import com.jdt.waltrackv2.utils.FilterHandlerWalletVer
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.view.AddWalletActivity
 
@@ -34,7 +35,7 @@ class WalletFragment : Fragment() {
     private lateinit var addItemLayoutBinding: AddItemLayoutBinding
 
     private lateinit var addItemHandler: AddItemHandler
-    private lateinit var filterHandler: FilterHandler
+    private lateinit var filterHandler: FilterHandlerWalletVer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -56,7 +57,7 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        filterHandler = FilterHandler(layoutWalletVerBinding.filterButton, layoutWalletVerBinding.filterDisplay, requireContext())
+        filterHandler = FilterHandlerWalletVer(layoutWalletVerBinding, requireContext())
         addItemHandler = AddItemHandler(addItemLayoutBinding.root,
             Intent(requireContext(), AddWalletActivity::class.java),
             requireActivity())

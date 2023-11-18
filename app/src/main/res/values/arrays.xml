@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="transaction_type">
+        <item>Income</item>
+        <item>Expense</item>
+    </array>
+    <array name="transaction_tags">
+        <item>Allowance</item>
+        <item>Donation</item>
+        <item>Event</item>
+        <item>Fee</item>
+        <item>Food</item>
+        <item>Health</item>
+        <item>Important</item>
+        <item>Leisure</item>
+        <item>Miscellaneous</item>
+        <item>Property</item>
+        <item>Transportation</item>
+        <item>Savings</item>
+    </array>
+</resources>
