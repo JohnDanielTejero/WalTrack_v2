@@ -44,7 +44,7 @@
                 android:layout_marginEnd="2.5sp"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
-                    android:textSize="9sp"
+                    android:textSize="9.6sp"
                     android:id="@+id/filter_year_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -64,7 +64,7 @@
                 android:layout_marginHorizontal="2.5sp"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
-                    android:textSize="9sp"
+                    android:textSize="9.6sp"
                     android:id="@+id/filter_month_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
                 <AutoCompleteTextView
-                    android:textSize="9sp"
+                    android:textSize="9.6sp"
                     android:id="@+id/filter_day_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

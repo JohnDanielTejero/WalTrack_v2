@@ -68,7 +68,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/transaction_submit"
+            android:id="@+id/wallet_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="120sp"

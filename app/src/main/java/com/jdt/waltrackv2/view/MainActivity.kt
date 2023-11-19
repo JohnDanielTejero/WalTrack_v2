@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
 
                 R.id.menu_wallet -> {
                     replaceFragment(WalletFragment())
-                    supportActionBar?.title = "Wallet"
+                    supportActionBar?.title = "Wallets"
                     navView.setCheckedItem(R.id.menu_wallet)
                     selectedFragmentId = R.id.menu_wallet
                 }
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
             R.id.menu_wallet -> {
                 if (currentFragment !is WalletFragment) {
                     fragment = WalletFragment()
-                    supportActionBar?.title = "Wallet"
+                    supportActionBar?.title = "Wallets"
                     navView.setCheckedItem(R.id.menu_wallet)
                     selectedFragmentId = R.id.menu_wallet
                 }
