@@ -16,13 +16,16 @@
         android:theme="@style/Theme.WalTrackV2"
         tools:targetApi="34">
         <activity
-            android:screenOrientation="sensorPortrait"
-            android:name=".view.AddWalletActivity"
+            android:name=".view.WalletEditActivity"
             android:exported="false" />
         <activity
-            android:screenOrientation="sensorPortrait"
+            android:name=".view.AddWalletActivity"
+            android:exported="false"
+            android:screenOrientation="sensorPortrait" />
+        <activity
             android:name=".view.TransactionAddActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true"

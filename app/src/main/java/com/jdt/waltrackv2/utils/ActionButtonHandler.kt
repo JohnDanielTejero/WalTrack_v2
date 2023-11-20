@@ -5,7 +5,7 @@ import androidx.activity.result.ActivityResultLauncher
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class AddItemHandler(
+class ActionButtonHandler(
     button: FloatingActionButton,
     intent: Intent,
     private val launcher: ActivityResultLauncher<Intent>

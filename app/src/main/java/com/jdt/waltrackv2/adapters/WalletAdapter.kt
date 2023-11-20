@@ -1,13 +1,27 @@
 package com.jdt.waltrackv2.adapters
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.data.model.WalletTable
+import com.jdt.waltrackv2.data.view_model.WalletViewModel
+import com.jdt.waltrackv2.view.WalletEditActivity
+import com.jdt.waltrackv2.view.fragments.ItemActionsDialog
 import com.jdt.waltrackv2.view.viewholder.WalletViewHolder
 
-class WalletAdapter: RecyclerView.Adapter<WalletViewHolder>() {
+class WalletAdapter(
+    private val context: Context,
+    private val walletViewModel: WalletViewModel,
+    private val handleWalletEvents: ActivityResultLauncher<Intent>
+) : RecyclerView.Adapter<WalletViewHolder>() {
     private var walletList = emptyList<WalletTable>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder {
         return WalletViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wallet, parent, false))
@@ -19,9 +33,25 @@ class WalletAdapter: RecyclerView.Adapter<WalletViewHolder>() {
 
     override fun onBindViewHolder(holder: WalletViewHolder, position: Int) {
         val currentItem  = walletList[position]
+        holder.walletId.text = currentItem.walletId.toString()
         holder.walletName.text = currentItem.walletName
         holder.walletDesc.text = currentItem.walletDesc
-        holder.walletDate.text = ("${currentItem.walletMonth} ${currentItem.walletDay}, ${currentItem.walletYear}")
+        "${currentItem.walletMonth} ${currentItem.walletDay}, ${currentItem.walletYear}".also { holder.walletDate.text = it }
+
+        holder.walletRoot.rootView.setOnClickListener{
+            val itemActionsDialog = ItemActionsDialog()
+            itemActionsDialog.show((context as FragmentActivity).supportFragmentManager, "ItemActionsDialog")
+
+            itemActionsDialog.setDeleteClickListener {
+                Toast.makeText(context, "wallet ${currentItem.walletName} deleted!", Toast.LENGTH_SHORT).show()
+                walletViewModel.deleteWallet(currentItem)
+            }
+            itemActionsDialog.setEditClickListener {
+                val intent = Intent(context, WalletEditActivity::class.java)
+                intent.putExtra("selectedWallet", currentItem.walletId)
+                handleWalletEvents.launch(intent)
+            }
+        }
     }
 
     fun setData(wallets: List<WalletTable>){

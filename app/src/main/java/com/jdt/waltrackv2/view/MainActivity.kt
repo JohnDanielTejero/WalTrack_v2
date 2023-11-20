@@ -1,5 +1,6 @@
 package com.jdt.waltrackv2.view
 
+import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
@@ -25,6 +26,8 @@ import com.jdt.waltrackv2.view.fragments.WalletFragment
 
 
 class MainActivity : AppCompatActivity(), OnDataLoading {
+    private val THEME_PREFS = "theme_prefs"
+    private val THEME_KEY = "theme_key"
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navView : NavigationView
@@ -38,6 +41,19 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
     private var lastBackPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val prefs = getSharedPreferences(THEME_PREFS, Context.MODE_PRIVATE)
+        var savedTheme = prefs.getInt(THEME_KEY, -1)
+
+        if (savedTheme == -1) {
+            savedTheme = if (isDarkModeEnabled()) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
+            saveThemePreference(savedTheme)
+        }
+
+        AppCompatDelegate.setDefaultNightMode(savedTheme)
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -134,10 +150,11 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
 
 
     private fun onIconClick() {
-        if(!isLoading!!){
-
+        if (!isLoading!!) {
             val newMode = !isDarkModeEnabled()
-            AppCompatDelegate.setDefaultNightMode(if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO)
+            val newTheme = if (newMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            saveThemePreference(newTheme)
+            AppCompatDelegate.setDefaultNightMode(newTheme)
             updateIcon(newMode)
             recreate()
         }
@@ -145,6 +162,7 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
     private fun updateIcon(isDarkMode: Boolean) {
         iconImageView.setImageResource(if (isDarkMode) R.drawable.ic_dark_mode else R.drawable.ic_light_mode)
     }
+
     private fun isDarkModeEnabled(): Boolean {
         val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
         return currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -191,6 +209,10 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
         fragment?.let {
             replaceFragment(it)
         }
+    }
+    private fun saveThemePreference(themeMode: Int) {
+        val prefs = getSharedPreferences(THEME_PREFS, Context.MODE_PRIVATE)
+        prefs.edit().putInt(THEME_KEY, themeMode).apply()
     }
 
     private fun replaceFragment(f: Fragment){

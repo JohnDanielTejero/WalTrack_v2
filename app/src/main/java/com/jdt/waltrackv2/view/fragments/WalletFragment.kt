@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,11 +21,10 @@ import com.jdt.waltrackv2.databinding.AddItemLayoutBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
 import com.jdt.waltrackv2.databinding.FragmentWalletBinding
 import com.jdt.waltrackv2.databinding.PlaceholderTransactionsBinding
-import com.jdt.waltrackv2.utils.AddItemHandler
+import com.jdt.waltrackv2.utils.ActionButtonHandler
 import com.jdt.waltrackv2.utils.FilterHandlerWalletVer
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.view.AddWalletActivity
-import java.lang.StringBuilder
 
 class WalletFragment : Fragment() {
 
@@ -36,12 +34,12 @@ class WalletFragment : Fragment() {
     private lateinit var itemsPlaceholderBinding: PlaceholderTransactionsBinding
 
     private var dataLoadingListener : OnDataLoading? = null
-    private lateinit var addItemHandler: AddItemHandler
+    private lateinit var actionButtonHandler: ActionButtonHandler
     private lateinit var filterHandler: FilterHandlerWalletVer
 
     private lateinit var walletListing: RecyclerView
     private lateinit var walletAdapter: WalletAdapter
-    private lateinit var addWalletContract: ActivityResultLauncher<Intent>
+    private lateinit var handleWalletEvents: ActivityResultLauncher<Intent>
     private lateinit var walletViewModel: WalletViewModel
 
     override fun onAttach(context: Context) {
@@ -59,7 +57,7 @@ class WalletFragment : Fragment() {
     ): View {
         dataLoadingListener?.onDataLoadingStarted()
         binding = FragmentWalletBinding.inflate(inflater, container, false)
-        addWalletContract = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        handleWalletEvents = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 loadData(inflater)
             }
@@ -76,7 +74,7 @@ class WalletFragment : Fragment() {
 
         val inflater = LayoutInflater.from(requireContext())
 
-        walletAdapter = WalletAdapter()
+        walletAdapter = WalletAdapter(requireContext(), walletViewModel, handleWalletEvents)
         itemsPlaceholderBinding.root.visibility = View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
             loadData(inflater)
@@ -94,6 +92,9 @@ class WalletFragment : Fragment() {
                 layoutWalletVerBinding = FilterLayoutWalletVerBinding.inflate(inflater, binding.filterOption, true)
                 filterHandler = FilterHandlerWalletVer(layoutWalletVerBinding, requireContext()){
 
+                    itemsPlaceholderBinding.root.visibility = View.VISIBLE
+                    binding.walletListing.visibility = View.GONE
+
                     val yearFilter = layoutWalletVerBinding.filterYearDropdown.text.toString()
                     val monthFilter = layoutWalletVerBinding.filterMonthDropdown.text.toString()
                     val dayFilter = layoutWalletVerBinding.filterDayDropdown.text.toString()
@@ -102,10 +103,12 @@ class WalletFragment : Fragment() {
                     val day = if (dayFilter != "All") dayFilter.toInt() else null
 
                     if(year == null  && month == null && day == null){
-                        walletAdapter.setData(walletData)
+                        loadData(inflater)
                     }else{
                         walletViewModel.getFilteredWallets(year, month, day)?.observe(viewLifecycleOwner) { filteredWalletData ->
                             walletAdapter.setData(filteredWalletData)
+                            binding.walletListing.visibility = View.VISIBLE
+                            itemsPlaceholderBinding.root.visibility = View.GONE
                         }
                     }
                 }
@@ -113,14 +116,14 @@ class WalletFragment : Fragment() {
 
             if(!::addItemLayoutBinding.isInitialized){
                 addItemLayoutBinding = AddItemLayoutBinding.inflate(inflater, binding.addItemContainer, true)
-                addItemHandler = AddItemHandler(addItemLayoutBinding.root,
+                actionButtonHandler = ActionButtonHandler(addItemLayoutBinding.root,
                     Intent(requireContext(), AddWalletActivity::class.java),
-                    addWalletContract)
+                    handleWalletEvents)
             }
 
-            itemsPlaceholderBinding.root.visibility = View.GONE
             walletAdapter.setData(walletData)
             binding.walletListing.visibility = View.VISIBLE
+            itemsPlaceholderBinding.root.visibility = View.GONE
         }
         dataLoadingListener?.onDataLoadingFinished()
     }

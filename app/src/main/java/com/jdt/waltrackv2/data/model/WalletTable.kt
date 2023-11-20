@@ -10,8 +10,8 @@ data class WalletTable(
     @PrimaryKey(autoGenerate = true)
     val walletId: Int,
 
-    val walletName: String,
-    val walletDesc: String,
+    var walletName: String,
+    var walletDesc: String,
     val walletDay: Int,
     val walletMonth: String,
     val walletYear: Int

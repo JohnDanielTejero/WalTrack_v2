@@ -30,13 +30,29 @@ class WalletViewModel (application: Application) : AndroidViewModel(application)
             repository.addWallet(walletTable)
         }
     }
+
     fun isWalletNameUnique(walletName: String):  LiveData<Boolean>  {
-        val isUniqueLiveData = MutableLiveData<Boolean>()
-        viewModelScope.launch(Dispatchers.IO) {
-            val isUnique = repository.isWalletNameUnique(walletName)
-            isUniqueLiveData.postValue(isUnique)
+        return repository.isWalletNameUnique(walletName)
+    }
+
+    fun getWalletByName(walletName : String): LiveData<WalletTable> {
+        return repository.getWalletByName(walletName)
+    }
+
+    fun getWalletById(id: Int) : LiveData<WalletTable>{
+        return repository.getWalletById(id)
+    }
+
+    fun deleteWallet(wallet: WalletTable) {
+        viewModelScope.launch {
+            repository.deleteWallet(wallet)
         }
-        return isUniqueLiveData
+    }
+
+    fun updateWallet(wallet: WalletTable) {
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateWallet(wallet)
+        }
     }
 
 }

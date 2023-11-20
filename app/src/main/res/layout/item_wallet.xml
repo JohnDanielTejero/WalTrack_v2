@@ -4,13 +4,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:padding="5sp"
+    android:clickable="true"
     android:layout_height="125sp">
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"
         android:background="@drawable/display_ripple_click">
         <RelativeLayout
             android:id="@+id/wallet_icon"
@@ -24,6 +24,11 @@
             app:layout_constraintHorizontal_bias="0.0399"
             android:padding="5sp"
             >
+            <TextView
+                android:id="@+id/wallet_primary_key"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

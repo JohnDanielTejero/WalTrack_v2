@@ -1,7 +1,6 @@
 package com.jdt.waltrackv2.view.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,11 +14,10 @@ import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
 import com.jdt.waltrackv2.databinding.ExpenseDataBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutBinding
 import com.jdt.waltrackv2.databinding.FragmentExpensesBinding
-import com.jdt.waltrackv2.utils.AddItemHandler
+import com.jdt.waltrackv2.utils.ActionButtonHandler
 import com.jdt.waltrackv2.utils.FilterHandler
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.utils.RenderElementHandler
-import com.jdt.waltrackv2.view.TransactionAddActivity
 
 class ExpensesFragment : Fragment() {
 
@@ -35,7 +33,7 @@ class ExpensesFragment : Fragment() {
     private lateinit var addItemButton: AddItemLayoutBinding
 
     private lateinit var filterHandler: FilterHandler
-    private  lateinit var addItemHandler: AddItemHandler
+    private  lateinit var actionButtonHandler: ActionButtonHandler
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -39,7 +39,7 @@
         android:textAllCaps="true"
         app:layout_constraintTop_toBottomOf="@id/filter_option"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/income_listing"
+        app:layout_constraintBottom_toTopOf="@id/income_listing_container"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -49,14 +49,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Income"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/income_listing"
+    <FrameLayout
+        android:id="@+id/income_listing_container"
         app:layout_constraintTop_toBottomOf="@id/income_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/income_listing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <include layout="@layout/placeholder_transactions"/>
+    </FrameLayout>
+
     <RelativeLayout
         android:id="@+id/add_item_container"
         android:layout_width="wrap_content"

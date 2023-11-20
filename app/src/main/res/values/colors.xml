@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whitesmoke">#FCFCFC</color>
     <color name="primary">#62115d</color>
     <color name="secondary">#ad5a9c</color>
     <color name="accent">#A60B86</color>
