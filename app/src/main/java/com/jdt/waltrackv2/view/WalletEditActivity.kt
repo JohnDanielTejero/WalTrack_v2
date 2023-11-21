@@ -70,29 +70,42 @@ class WalletEditActivity : AppCompatActivity() {
                 val walletName = binding.walletName.text.toString()
                 val walletDesc = binding.walletDescription.text.toString()
 
-                // Perform uniqueness check
-                val isUniqueLiveData = walletViewModel.isWalletNameUnique(walletName)
+                val isNameChanged = walletName != selectedWallet?.walletName
 
-                isUniqueLiveData.observe(this) { isUnique ->
-                    if (isUnique == true) {
-                        selectedWallet?.walletName = walletName
-                        selectedWallet?.walletDesc = walletDesc
+                if (isNameChanged) {
+                    val isUniqueLiveData = walletViewModel.isWalletNameUnique(walletName)
 
-                        walletViewModel.updateWallet(selectedWallet!!)
-                        Toast.makeText(this, "Wallet Successfully Updated!", Toast.LENGTH_SHORT).show()
+                    isUniqueLiveData.observe(this) { isUnique ->
+                        if (isUnique == true) {
+                            selectedWallet?.walletName = walletName
+                            selectedWallet?.walletDesc = walletDesc
 
-                        val intent = Intent()
-                        setResult(Activity.RESULT_OK, intent)
-                        finish()
-                    } else {
+                            walletViewModel.updateWallet(selectedWallet!!)
+                            Toast.makeText(this, "Wallet Successfully Updated!", Toast.LENGTH_SHORT).show()
 
-                        binding.walletName.error = "Wallet currently exists! Please enter a new name."
-                        Toast.makeText(this, "Wallet currently exists! Please enter a new name.", Toast.LENGTH_SHORT).show()
-                        binding.walletSubmit.isEnabled = true
+                            val intent = Intent()
+                            setResult(Activity.RESULT_OK, intent)
+                            finish()
+                        } else {
+
+                            binding.walletName.error = "Wallet currently exists! Please enter a new name."
+                            Toast.makeText(this, "Wallet currently exists! Please enter a new name.", Toast.LENGTH_SHORT).show()
+                            binding.walletSubmit.isEnabled = true
+                        }
+
+                        isUniqueLiveData.removeObservers(this)
                     }
-                    
-                    isUniqueLiveData.removeObservers(this)
+                }else{
+                    selectedWallet?.walletDesc = walletDesc
+
+                    walletViewModel.updateWallet(selectedWallet!!)
+                    Toast.makeText(this, "Wallet Successfully Updated!", Toast.LENGTH_SHORT).show()
+
+                    val intent = Intent()
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
                 }
+
             } else {
                 Toast.makeText(this, "Fields need to be filled properly.", Toast.LENGTH_SHORT).show()
                 binding.walletSubmit.isEnabled = true

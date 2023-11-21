@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.adapters.ExpenseAdapter
 import com.jdt.waltrackv2.data.model.TransactionTable
 import com.jdt.waltrackv2.data.view_model.TransactionViewModel
