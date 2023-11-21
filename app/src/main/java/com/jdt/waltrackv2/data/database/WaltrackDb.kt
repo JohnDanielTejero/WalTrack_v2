@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.jdt.waltrackv2.data.dao.TransactionDao
 import com.jdt.waltrackv2.data.dao.WalletDao
 import com.jdt.waltrackv2.data.model.TransactionTable
 import com.jdt.waltrackv2.data.model.WalletTable
@@ -13,7 +14,7 @@ import com.jdt.waltrackv2.data.model.WalletTable
 @Database(entities = [WalletTable::class, TransactionTable::class], version = 2, exportSchema = false)
 abstract class WaltrackDb : RoomDatabase(){
     abstract fun walletDao(): WalletDao
-
+    abstract fun transactionDao(): TransactionDao
     companion object{
         @Volatile
         private var INSTANCE: WaltrackDb? = null

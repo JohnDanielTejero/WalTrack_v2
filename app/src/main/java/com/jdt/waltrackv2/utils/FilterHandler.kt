@@ -12,15 +12,15 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.adapters.setupDropdownAdapter
+import com.jdt.waltrackv2.data.model.WalletTable
 import com.jdt.waltrackv2.databinding.FilterLayoutBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
 import java.util.Calendar
 import java.util.Locale
 
 //TODO: Add Wallet Item as Parameter
-class FilterHandler(private val filterLayoutBinding: FilterLayoutBinding, context: Context, cb : (()->Unit)? = null) {
+class FilterHandler(private val filterLayoutBinding: FilterLayoutBinding, context: Context, cb : (()->Unit)? = null, private val wallets: List<WalletTable>?= null) {
     private var isFilterToggled: Boolean = false
-
     init {
         filterLayoutBinding.filterButton.setOnClickListener {
             Log.d("FilterHandler", "filter is clicked")
@@ -30,6 +30,9 @@ class FilterHandler(private val filterLayoutBinding: FilterLayoutBinding, contex
                 filterLayoutBinding.filterButton,
                 isFilterToggled)
         }
+
+        val allAndWallets = arrayOf("All") + (wallets!!.map { it.walletName }.toTypedArray())
+        setupDropdown(filterLayoutBinding.filterWalletDropdown, context, allAndWallets) { _, _, _, _ -> cb?.invoke()}
         setupDropdown(filterLayoutBinding.filterYearDropdown, context, populateYear().toTypedArray()){ s, _, _, _ ->
             cb?.invoke()
             val yearText = s.toString()

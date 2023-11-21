@@ -81,9 +81,9 @@ class IncomeFragment : Fragment() {
 //                loadData(inflater)
 //            )
 
-            filterHandler = FilterHandler(filterLayoutBinding, requireContext()) {
+            filterHandler = FilterHandler(filterLayoutBinding, requireContext(), {
                 Toast.makeText(requireContext(), "hello world", Toast.LENGTH_SHORT).show()
-            }
+            }, null)
             dataLoadingListener.onDataLoadingFinished()
         }, 3000)
     }
