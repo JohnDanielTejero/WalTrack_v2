@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.adapters.ExpenseAdapter
+import com.jdt.waltrackv2.data.model.TransactionTable
 import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
 import com.jdt.waltrackv2.databinding.AddItemLayoutBinding
@@ -92,6 +93,7 @@ class ExpensesFragment : Fragment() {
             val inflater = LayoutInflater.from(requireContext())
             loadData(inflater)
             expenseDisplayDataBinding = ExpenseDataBinding.inflate(inflater, binding.expenseBalanceDisplay, true)
+            expenseDisplayDataBinding.root.visibility = View.GONE
             dataLoadingListener?.onDataLoadingFinished()
         }, 1500)
     }
@@ -101,7 +103,7 @@ class ExpensesFragment : Fragment() {
         binding.expenseListing.layoutManager = LinearLayoutManager(requireContext())
         binding.expenseListing.adapter = expenseAdapter
         transactionViewModel.getAllTransactions("Expense").observe(viewLifecycleOwner) { transactionsData ->
-
+            calcTotalExpense(transactionsData)
             if (!::filterLayoutBinding.isInitialized) {
                 filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)
                 walletViewModel.wallets.observe(viewLifecycleOwner){
@@ -136,6 +138,7 @@ class ExpensesFragment : Fragment() {
                                                 day
                                             )?.observe(viewLifecycleOwner) { filteredTransaction ->
                                                 expenseAdapter.setData(filteredTransaction)
+                                                calcTotalExpense(transactionsData)
                                             }
                                         } else {
                                             transactionViewModel.getFilteredTransactions(
@@ -146,11 +149,12 @@ class ExpensesFragment : Fragment() {
                                                 day
                                             )?.observe(viewLifecycleOwner){ filteredTransaction ->
                                                 expenseAdapter.setData(filteredTransaction)
+                                                calcTotalExpense(transactionsData)
                                             }
                                         }
                                     }
                             }
-                            shimmerPlaceholderBinding.root.visibility = View.GONE
+
                             binding.expenseListing.visibility = View.VISIBLE
                             itemsPlaceholderBinding.root.visibility = View.GONE
                         }
@@ -171,5 +175,13 @@ class ExpensesFragment : Fragment() {
             itemsPlaceholderBinding.root.visibility = View.GONE
         }
         dataLoadingListener?.onDataLoadingFinished()
+    }
+
+    private fun calcTotalExpense(transactions: List<TransactionTable>){
+        val totalExpenseAmount = transactions
+            .sumOf { it.transactionAmount }
+        expenseDisplayDataBinding.expenseTotalBalanceDisplay.text = "Php ${totalExpenseAmount.toString()}"
+        shimmerPlaceholderBinding.root.visibility = View.GONE
+        expenseDisplayDataBinding.root.visibility = View.VISIBLE
     }
 }
