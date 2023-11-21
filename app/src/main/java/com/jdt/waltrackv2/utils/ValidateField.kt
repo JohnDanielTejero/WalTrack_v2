@@ -5,7 +5,8 @@ import com.google.android.material.textfield.TextInputEditText
 
 class ValidateField {
     companion object{
-        const val regex = "[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?"
+        private const val regex = "[-+]?\\d+\\.?\\d*([eE][-+]?\\d+)?"
+
         fun notEmptyText(textInputEditText: TextInputEditText): Boolean {
             if (textInputEditText.text?.isEmpty()!!){
                 textInputEditText.error = "field is required!"
@@ -35,11 +36,17 @@ class ValidateField {
             return true
         }
 
-        fun checkNumFormat(textInputEditText: TextInputEditText): Boolean {
-            if (!textInputEditText.toString().matches(regex.toRegex())) {
-                textInputEditText.error = "Field should be in correct format."
+        fun checkNumFormat(inputText: TextInputEditText): Boolean {
+            if (inputText.text.toString().isBlank() || inputText.text.toString() == ".") {
+                inputText.error = "Field should be in correct format."
                 return false
             }
+
+            if (!inputText.text.toString().matches(regex.toRegex())) {
+                inputText.error = "Field should be in correct format."
+                return false
+            }
+
             return true
         }
     }

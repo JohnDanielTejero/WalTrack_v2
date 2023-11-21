@@ -32,4 +32,12 @@
         <item name="hintTextColor">?customTitleColor</item>
     </style>
 
+    <style name="CustomDatePickerDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorAccent">?customTitleColor</item>
+        <item name="android:buttonBarButtonStyle">@style/CustomButtonBarButtonStyle</item>
+    </style>
+
+    <style name="CustomButtonBarButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?customTitleColor</item>
+    </style>
 </resources>

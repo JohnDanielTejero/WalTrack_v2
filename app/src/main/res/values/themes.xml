@@ -18,7 +18,7 @@
         <item name="customTitleColorAlt">?colorPrimary</item>
         <item name="customRippleBgColor">#fafafa</item>
         <item name="customRippleColorAlt">@color/ripple_bg_light</item>
-        <item name="customBackdropGradient">?colorSecondary</item>
+        <item name="customBackdropGradient">?colorPrimary</item>
         <item name="customButtonShade">?colorOnPrimary</item>
     </style>
     <!-- Base application theme. -->

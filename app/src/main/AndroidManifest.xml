@@ -17,6 +17,7 @@
         tools:targetApi="34">
         <activity
             android:name=".view.WalletEditActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".view.AddWalletActivity"

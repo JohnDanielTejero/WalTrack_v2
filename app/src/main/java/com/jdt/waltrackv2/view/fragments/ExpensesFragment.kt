@@ -66,7 +66,7 @@ class ExpensesFragment : Fragment() {
 
         activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                //loadData(inflater)
+                loadData(inflater)
             }
         }
 
@@ -85,7 +85,7 @@ class ExpensesFragment : Fragment() {
         binding.expenseListing.visibility = View.GONE
         itemsPlaceholderBinding.root.visibility = View.VISIBLE
 
-        expenseAdapter = ExpenseAdapter(requireContext(), transactionViewModel, activityResult)
+        expenseAdapter = ExpenseAdapter(requireContext(), activityResult)
 
         //simulate data retrieval
         Handler(Looper.getMainLooper()).postDelayed({
@@ -135,23 +135,23 @@ class ExpensesFragment : Fragment() {
                                                 year,
                                                 month,
                                                 day
-                                            )?.observe(viewLifecycleOwner) { filteredTransaction ->
+                                            ).observe(viewLifecycleOwner) { filteredTransaction ->
                                                 expenseAdapter.setData(filteredTransaction)
-                                                calcTotalExpense(transactionsData)
-                                            }
-                                        } else {
-                                            transactionViewModel.getFilteredTransactions(
-                                                "Expense",
-                                                null,
-                                                year,
-                                                month,
-                                                day
-                                            )?.observe(viewLifecycleOwner){ filteredTransaction ->
-                                                expenseAdapter.setData(filteredTransaction)
-                                                calcTotalExpense(transactionsData)
+                                                calcTotalExpense(filteredTransaction)
                                             }
                                         }
                                     }
+                            }else {
+                                transactionViewModel.getFilteredTransactions(
+                                    "Expense",
+                                    null,
+                                    year,
+                                    month,
+                                    day
+                                ).observe(viewLifecycleOwner){ filteredTransaction ->
+                                    expenseAdapter.setData(filteredTransaction)
+                                    calcTotalExpense(filteredTransaction)
+                                }
                             }
 
                             binding.expenseListing.visibility = View.VISIBLE
