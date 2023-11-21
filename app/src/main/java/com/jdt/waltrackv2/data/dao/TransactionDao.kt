@@ -12,9 +12,9 @@ import com.jdt.waltrackv2.data.model.TransactionTable
 interface TransactionDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertTransaction(transaction: TransactionTable)
-    @Query("SELECT * FROM transactions WHERE (:transactionType IS NULL OR transactionType = :transactionType) ORDER BY 1 DESC")
+    @Query("SELECT * FROM transactions WHERE (:transactionType IS NULL OR transactionType = :transactionType) ORDER BY transactionYear DESC, transactionMonth DESC, transactionDay DESC")
     fun getAllTransactions(transactionType: String?) : LiveData<List<TransactionTable>>
-    @Query("SELECT * FROM transactions WHERE transactionType = :transactionType AND (:walletId IS NULL OR walletId = :walletId) AND (:year IS NULL OR transactionYear = :year) AND (:month IS NULL OR transactionMonth = :month) AND (:day IS NULL OR transactionDay = :day)")
+    @Query("SELECT * FROM transactions WHERE transactionType = :transactionType AND (:walletId IS NULL OR walletId = :walletId) AND (:year IS NULL OR transactionYear = :year) AND (:month IS NULL OR transactionMonth = :month) AND (:day IS NULL OR transactionDay = :day) ORDER BY transactionYear DESC, transactionMonth DESC, transactionDay DESC")
     fun getTransactionsWithFilter(transactionType: String, walletId: Int?, year: Int?, month: String?, day: Int?): LiveData<List<TransactionTable>>
     @Query("SELECT * FROM transactions WHERE transactionId = :id LIMIT 1")
     fun getTransactionById(id: Int): LiveData<TransactionTable>

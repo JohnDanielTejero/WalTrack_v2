@@ -15,11 +15,11 @@ interface WalletDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertWallet(wallet: WalletTable)
 
-    @Query("SELECT * FROM wallet ORDER BY 1 DESC")
+    @Query("SELECT * FROM wallet ORDER BY walletYear DESC, walletMonth DESC, walletDay DESC")
     fun getAllWallet() :LiveData<List<WalletTable>>
     @Query("SELECT * FROM wallet WHERE walletName = :name LIMIT 1")
     fun getWalletByName(name: String): LiveData<WalletTable>
-    @Query("SELECT * FROM wallet WHERE (:year IS NULL OR walletYear = :year) AND (:month IS NULL OR walletMonth = :month) AND (:day IS NULL OR walletDay = :day) ORDER BY 1 DESC")
+    @Query("SELECT * FROM wallet WHERE (:year IS NULL OR walletYear = :year) AND (:month IS NULL OR walletMonth = :month) AND (:day IS NULL OR walletDay = :day) ORDER BY walletYear DESC, walletMonth DESC, walletDay DESC")
     fun getWalletsWithFilter(year: Int?, month: String?, day: Int?): LiveData<List<WalletTable>>
     @Query("SELECT * FROM wallet WHERE walletId = :id LIMIT 1")
     fun getWalletById(id: Int): LiveData<WalletTable>
