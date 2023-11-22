@@ -1,9 +1,20 @@
 package com.jdt.waltrackv2.data.model
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "transactions")
+@Entity(
+    tableName = "transactions",
+    foreignKeys = [
+        ForeignKey(
+            entity = WalletTable::class,
+            parentColumns = ["walletId"],
+            childColumns = ["walletId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ]
+)
 data class TransactionTable (
     @PrimaryKey(autoGenerate = true)
     val transactionId: Int,

@@ -87,7 +87,6 @@ class ExpensesFragment : Fragment() {
 
         expenseAdapter = ExpenseAdapter(requireContext(), activityResult)
 
-        //simulate data retrieval
         Handler(Looper.getMainLooper()).postDelayed({
             val inflater = LayoutInflater.from(requireContext())
             loadData(inflater)

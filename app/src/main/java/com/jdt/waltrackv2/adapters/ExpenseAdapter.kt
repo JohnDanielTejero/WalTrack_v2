@@ -2,6 +2,7 @@ package com.jdt.waltrackv2.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.jdt.waltrackv2.data.model.WalletTable
 import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
 import com.jdt.waltrackv2.view.AddWalletActivity
+import com.jdt.waltrackv2.view.ViewTransactionActivity
 import com.jdt.waltrackv2.view.WalletEditActivity
 import com.jdt.waltrackv2.view.fragments.ItemActionsDialog
 import com.jdt.waltrackv2.view.viewholder.ExpenseViewHolder
@@ -39,9 +41,8 @@ class ExpenseAdapter(
         holder.expenseCategory.text = currentItem.transactionTag
         "${currentItem.transactionMonth} ${currentItem.transactionDay}, ${currentItem.transactionYear}".also { holder.expenseDate.text = it }
         holder.expenseAmount.text = "-Php ${currentItem.transactionAmount}"
-        holder.itemView.rootView.setOnClickListener{
-            //TODO: add proper view for wallet activity
-            val intent = Intent(context, AddWalletActivity::class.java)
+        holder.expenseRoot.rootView.setOnClickListener{_ ->
+            val intent = Intent(context, ViewTransactionActivity::class.java)
             intent.putExtra("selectedTransaction", currentItem.transactionId)
             handleEvents.launch(intent)
         }

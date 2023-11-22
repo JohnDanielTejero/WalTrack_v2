@@ -8,8 +8,8 @@ import com.jdt.waltrackv2.data.model.TransactionTable
 
 class TransactionRepository(private val transactionDao: TransactionDao) {
 
-    fun getAllTransactions(type: String?=null): LiveData<List<TransactionTable>> {
-        return transactionDao.getAllTransactions(type)
+    fun getAllTransactions(type: String?=null, limit: Int?=null): LiveData<List<TransactionTable>> {
+        return transactionDao.getAllTransactions(type, limit)
     }
     suspend fun addTransaction(transaction: TransactionTable){
         transactionDao.insertTransaction(transaction)

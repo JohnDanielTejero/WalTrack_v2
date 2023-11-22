@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="125sp"
+    android:clickable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5sp">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -10,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5sp"
-        android:clickable="true"
         android:background="@drawable/display_ripple_click">
         <RelativeLayout
             android:id="@+id/income_icon"
@@ -24,6 +24,12 @@
             app:layout_constraintHorizontal_bias="0.0399"
             android:padding="5sp"
             >
+            <TextView
+                android:id="@+id/income_id"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="placeholder"/>
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -48,7 +54,7 @@
                 app:layout_constraintBottom_toTopOf="@id/income_details"
                 app:layout_constraintVertical_bias="0"
                 app:layout_constraintHorizontal_bias="0"
-                android:text="test"
+                android:text="Placeholder"
                 android:textStyle="bold"
                 android:textColor="?customTitleColor"
                 android:textSize="15sp"
@@ -56,8 +62,8 @@
                 android:layout_width="80sp"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:text="Placeholder"
                 android:id="@+id/income_details"
-                android:text="Some text hasjkhasjhdajdhadjahdjahdjahdjahdajahdjahdjahdjadjahdjahdakjsdkdjakdajkdajd"
                 android:textColor="?customTitleColor"
                 android:textSize="12sp"
                 app:layout_constraintTop_toBottomOf="@id/income_title"
