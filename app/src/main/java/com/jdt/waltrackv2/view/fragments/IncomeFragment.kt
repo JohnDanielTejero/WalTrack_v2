@@ -89,7 +89,7 @@ class IncomeFragment : Fragment() {
         binding.incomeListing.visibility = View.GONE
         itemsPlaceholderBinding.root.visibility = View.VISIBLE
 
-        incomeAdapter = IncomeAdapter(requireContext(), activityResult)
+        incomeAdapter = IncomeAdapter(requireContext(), activityResult, walletViewModel, viewLifecycleOwner)
 
         Handler(Looper.getMainLooper()).postDelayed({
             val inflater = LayoutInflater.from(requireContext())

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.data.model.TransactionTable
@@ -23,7 +24,9 @@ import com.jdt.waltrackv2.view.viewholder.WalletViewHolder
 
 class ExpenseAdapter(
     private val context: Context,
-    private val handleEvents: ActivityResultLauncher<Intent>
+    private val handleEvents: ActivityResultLauncher<Intent>,
+    private var walletViewModel: WalletViewModel,
+    private var lifecycleOwner: LifecycleOwner
 ): RecyclerView.Adapter<ExpenseViewHolder>() {
     private var expenseList = emptyList<TransactionTable>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
@@ -45,6 +48,10 @@ class ExpenseAdapter(
             val intent = Intent(context, ViewTransactionActivity::class.java)
             intent.putExtra("selectedTransaction", currentItem.transactionId)
             handleEvents.launch(intent)
+        }
+
+        walletViewModel.getWalletById(currentItem.walletId).observe(lifecycleOwner){
+            holder.walletName.text = it.walletName
         }
 
     }

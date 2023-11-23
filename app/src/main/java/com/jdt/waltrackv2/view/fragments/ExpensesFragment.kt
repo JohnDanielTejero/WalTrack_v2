@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jdt.waltrackv2.adapters.ExpenseAdapter
+import com.jdt.waltrackv2.adapters.TransactionAdapter
 import com.jdt.waltrackv2.data.model.TransactionTable
 import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
@@ -85,7 +86,7 @@ class ExpensesFragment : Fragment() {
         binding.expenseListing.visibility = View.GONE
         itemsPlaceholderBinding.root.visibility = View.VISIBLE
 
-        expenseAdapter = ExpenseAdapter(requireContext(), activityResult)
+        expenseAdapter = ExpenseAdapter(requireContext(), activityResult, walletViewModel, viewLifecycleOwner)
 
         Handler(Looper.getMainLooper()).postDelayed({
             val inflater = LayoutInflater.from(requireContext())

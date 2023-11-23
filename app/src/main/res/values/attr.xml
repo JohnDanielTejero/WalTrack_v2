@@ -11,4 +11,6 @@
     <attr name="main_background" format="color"/>
     <attr name="placeholder_icon" format="color"/>
     <attr name="placeholder_texts" format="color"/>
+    <attr name="income_color" format="color"/>
+    <attr name="expense_color" format="color"/>
 </resources>

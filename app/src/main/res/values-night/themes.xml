@@ -19,6 +19,9 @@
         <item name="customBackdropGradient">?colorSecondaryVariant</item>
         <item name="customRippleColorAlt">@color/ripple_bg_dark</item>
         <item name="customButtonShade">?colorSecondary</item>
+
+        <item name ="income_color">#41F100</item>
+        <item name="expense_color">#ED0A0A</item>
     </style>
     <!-- Base application theme. -->
     <style name="Base.Theme.WalTrackV2" parent="Theme.Material3.DayNight.NoActionBar">

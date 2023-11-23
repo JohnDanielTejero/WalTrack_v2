@@ -47,6 +47,7 @@ class DashboardFragment : Fragment() {
 
     //viewmodels
     private lateinit var transactionViewModel: TransactionViewModel
+    private lateinit var walletViewModel: WalletViewModel
 
     private lateinit var tAdapter: TransactionAdapter
     private lateinit var activityResult: ActivityResultLauncher<Intent>
@@ -70,6 +71,7 @@ class DashboardFragment : Fragment() {
             }
         }
 
+        walletViewModel = ViewModelProvider(this)[WalletViewModel::class.java]
         transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         //placeholders
@@ -87,7 +89,7 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dataLoadingListener?.onDataLoadingStarted()
-        tAdapter = TransactionAdapter(requireContext(), activityResult)
+        tAdapter = TransactionAdapter(requireContext(), activityResult, walletViewModel, viewLifecycleOwner)
 
         Handler(Looper.getMainLooper()).postDelayed({
 

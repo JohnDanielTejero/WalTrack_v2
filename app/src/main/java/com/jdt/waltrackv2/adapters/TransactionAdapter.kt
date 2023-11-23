@@ -6,16 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.data.model.TransactionTable
+import com.jdt.waltrackv2.data.view_model.WalletViewModel
 import com.jdt.waltrackv2.view.ViewTransactionActivity
 import com.jdt.waltrackv2.view.viewholder.ExpenseViewHolder
 import com.jdt.waltrackv2.view.viewholder.IncomeViewHolder
 
 class TransactionAdapter  (
     private val context: Context,
-    private val handleEvents: ActivityResultLauncher<Intent>
+    private val handleEvents: ActivityResultLauncher<Intent>,
+    private var walletViewModel: WalletViewModel,
+    private var lifecycleOwner: LifecycleOwner
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val EXPENSE_VIEW_TYPE = 0
@@ -65,6 +69,10 @@ class TransactionAdapter  (
                     intent.putExtra("selectedTransaction", currentItem.transactionId)
                     handleEvents.launch(intent)
                 }
+
+                walletViewModel.getWalletById(currentItem.walletId).observe(lifecycleOwner){
+                    holder.walletName.text = it.walletName
+                }
             }
 
             is IncomeViewHolder -> {
@@ -77,6 +85,10 @@ class TransactionAdapter  (
                     val intent = Intent(context, ViewTransactionActivity::class.java)
                     intent.putExtra("selectedTransaction", currentItem.transactionId)
                     handleEvents.launch(intent)
+                }
+
+                walletViewModel.getWalletById(currentItem.walletId).observe(lifecycleOwner){
+                    holder.walletName.text = it.walletName
                 }
             }
         }

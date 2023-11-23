@@ -12,5 +12,6 @@ class IncomeViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {
     val incomeCategory: TextView = itemView.findViewById(R.id.income_details)
     val incomeDate: TextView = itemView.findViewById(R.id.income_transaction_date)
     val incomeAmount: TextView = itemView.findViewById(R.id.income_amount)
+    val walletName: TextView = itemView.findViewById(R.id.income_wallet)
     val incomeRoot: ConstraintLayout = itemView as ConstraintLayout
 }

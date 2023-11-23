@@ -23,9 +23,9 @@
             <item android:id="@+id/menu_share"
                 android:icon="@drawable/share_icon"
                 android:title="Share"/>
-            <item android:id="@+id/menu_donate"
-                android:icon="@drawable/donate_icon"
-                android:title="Donate"/>
+<!--            <item android:id="@+id/menu_donate"-->
+<!--                android:icon="@drawable/donate_icon"-->
+<!--                android:title="Donate"/>-->
             <item android:id="@+id/menu_contribute"
                 android:icon="@drawable/contribute_icon"
                 android:title="Contribute"/>

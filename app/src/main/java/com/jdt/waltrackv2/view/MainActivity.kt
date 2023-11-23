@@ -1,8 +1,10 @@
 package com.jdt.waltrackv2.view
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -115,6 +117,23 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
                     navView.setCheckedItem(R.id.menu_wallet)
                     selectedFragmentId = R.id.menu_wallet
                 }
+
+                R.id.menu_contribute -> {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/JohnDanielTejero/WalTrack_v2"))
+                    startActivity(intent)
+                }
+
+                R.id.menu_community -> {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/6sa6DWY4DW"))
+                    startActivity(intent)
+                }
+
+                R.id.menu_share -> {
+                    //TODO: Installation Link
+                }
+
+
+
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -212,7 +231,6 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
                 navView.setCheckedItem(R.id.menu_dashboard)
                 selectedFragmentId = R.id.menu_dashboard
             }
-
 
         }
         fragment?.let {
