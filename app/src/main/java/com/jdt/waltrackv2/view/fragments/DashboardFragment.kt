@@ -1,6 +1,8 @@
 package com.jdt.waltrackv2.view.fragments
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,11 +11,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.jdt.waltrackv2.adapters.TransactionAdapter
+import com.jdt.waltrackv2.data.view_model.TransactionViewModel
+import com.jdt.waltrackv2.data.view_model.WalletViewModel
 import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
 import com.jdt.waltrackv2.databinding.DashboardBalanceDisplayBinding
 import com.jdt.waltrackv2.databinding.DashboardIncomeDisplayBinding
 import com.jdt.waltrackv2.databinding.DashboardExpsenseDisplayBinding
 import com.jdt.waltrackv2.databinding.FragmentDashboardBinding
+import com.jdt.waltrackv2.databinding.PlaceholderTransactionsBinding
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.utils.RenderElementHandler
 class DashboardFragment : Fragment() {
@@ -33,7 +43,13 @@ class DashboardFragment : Fragment() {
     private lateinit var balancePlaceholder: BalanceShimmerPlaceholderBinding
     private lateinit var expensePlaceholder: BalanceShimmerPlaceholderBinding
     private lateinit var incomePlaceholder: BalanceShimmerPlaceholderBinding
+    private lateinit var itemsPlaceholderBinding: PlaceholderTransactionsBinding
 
+    //viewmodels
+    private lateinit var transactionViewModel: TransactionViewModel
+
+    private lateinit var tAdapter: TransactionAdapter
+    private lateinit var activityResult: ActivityResultLauncher<Intent>
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnDataLoading) {
@@ -48,7 +64,16 @@ class DashboardFragment : Fragment() {
     ): View {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
 
-        //placeholder
+        activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                loadData()
+            }
+        }
+
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
+
+        //placeholders
+        itemsPlaceholderBinding = PlaceholderTransactionsBinding.inflate(inflater, binding.transactionListingContainer, true)
         balancePlaceholder =
             BalanceShimmerPlaceholderBinding.inflate(inflater, binding.balanceDisplay, true)
         expensePlaceholder = BalanceShimmerPlaceholderBinding.inflate(inflater, binding.expenseDisplay, true)
@@ -62,32 +87,39 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dataLoadingListener?.onDataLoadingStarted()
+        tAdapter = TransactionAdapter(requireContext(), activityResult)
 
-        //simulate data retrieval
         Handler(Looper.getMainLooper()).postDelayed({
-            Log.d("DashboardFragment", "Handler delayed code execution")
-            activity?.let {
-                val inflater = LayoutInflater.from(requireContext())
-                //inflating data
-                dataBalance =
-                    DashboardBalanceDisplayBinding.inflate(inflater, binding.balanceDisplay, true)
+
+            loadData()
+            binding.balanceDisplay.removeView(balancePlaceholder.root)
+            binding.incomeDisplay.removeView(incomePlaceholder.root)
+            binding.expenseDisplay.removeView(expensePlaceholder.root)
+
+            dataLoadingListener?.onDataLoadingFinished()
+
+        }, 1500)
+    }
+
+    private fun loadData(){
+
+        val context = context ?: return  // Ensuring context is not null
+        val inflater = LayoutInflater.from(context)
+        if (isAdded && view != null) {
+            binding.recentTransactions.layoutManager = LinearLayoutManager(context)
+            binding.recentTransactions.adapter = tAdapter
+
+            transactionViewModel.getAllTransactions(null, 5).observe(viewLifecycleOwner){transaction ->
+                tAdapter.setData(transaction)
+                itemsPlaceholderBinding.root.visibility = View.GONE
+
+                binding.recentTransactions.visibility = View.VISIBLE
+                dataBalance = DashboardBalanceDisplayBinding.inflate(inflater, binding.balanceDisplay, true)
                 dataExpense = DashboardExpsenseDisplayBinding.inflate(inflater, binding.expenseDisplay, true)
                 dataIncome = DashboardIncomeDisplayBinding.inflate(inflater, binding.incomeDisplay, true)
-                Log.d("DashboardFragment", "Stopped shimmer, adding actual data")
-
-                // Stop shimmer animation
-                RenderElementHandler.removePlaceholders {
-                    binding.balanceDisplay.removeView(balancePlaceholder.root)
-                    binding.incomeDisplay.removeView(incomePlaceholder.root)
-                    binding.expenseDisplay.removeView(expensePlaceholder.root)
-                }
-
-                //adding data
-                dataLoadingListener?.onDataLoadingFinished()
             }
-
-
-        }, 3000) // Adjust the delay as need
+        }
     }
+
 
 }

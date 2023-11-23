@@ -6,7 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.jdt.waltrackv2.R
 
-class ExpenseViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+class ExpenseViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
     val expenseId: TextView = itemView.findViewById(R.id.expense_id)
     val expenseTitle: TextView = itemView.findViewById(R.id.expense_title)
     val expenseCategory: TextView = itemView.findViewById(R.id.expense_details)

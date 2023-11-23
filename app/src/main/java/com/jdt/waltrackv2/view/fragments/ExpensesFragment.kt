@@ -100,7 +100,7 @@ class ExpensesFragment : Fragment() {
 
         binding.expenseListing.layoutManager = LinearLayoutManager(requireContext())
         binding.expenseListing.adapter = expenseAdapter
-        transactionViewModel.getAllTransactions("Expense").observe(viewLifecycleOwner) { transactionsData ->
+        transactionViewModel.getAllTransactions("Expense", null).observe(viewLifecycleOwner) { transactionsData ->
             calcTotalExpense(transactionsData)
             if (!::filterLayoutBinding.isInitialized) {
                 filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)

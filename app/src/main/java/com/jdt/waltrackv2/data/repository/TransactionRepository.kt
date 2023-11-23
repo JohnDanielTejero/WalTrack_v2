@@ -9,7 +9,10 @@ import com.jdt.waltrackv2.data.model.TransactionTable
 class TransactionRepository(private val transactionDao: TransactionDao) {
 
     fun getAllTransactions(type: String?=null, limit: Int?=null): LiveData<List<TransactionTable>> {
-        return transactionDao.getAllTransactions(type, limit)
+        if (limit== null){
+            return transactionDao.getAllTransactions(type)
+        }
+        return transactionDao.getAllTransactionsWithLimit(type, limit)
     }
     suspend fun addTransaction(transaction: TransactionTable){
         transactionDao.insertTransaction(transaction)

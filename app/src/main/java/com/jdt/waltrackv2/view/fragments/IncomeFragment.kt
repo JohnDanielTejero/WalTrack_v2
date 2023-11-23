@@ -106,7 +106,7 @@ class IncomeFragment : Fragment() {
 
         binding.incomeListing.layoutManager = LinearLayoutManager(requireContext())
         binding.incomeListing.adapter = incomeAdapter
-        transactionViewModel.getAllTransactions("Income").observe(viewLifecycleOwner) { transactionsData ->
+        transactionViewModel.getAllTransactions("Income", null).observe(viewLifecycleOwner) { transactionsData ->
             calcTotalIncome(transactionsData)
             if (!::filterLayoutBinding.isInitialized) {
                 filterLayoutBinding = FilterLayoutBinding.inflate(inflater, binding.filterOption, true)

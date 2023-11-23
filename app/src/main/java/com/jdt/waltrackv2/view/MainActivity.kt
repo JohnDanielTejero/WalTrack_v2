@@ -205,6 +205,15 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
                     selectedFragmentId = R.id.menu_wallet
                 }
             }
+
+            else -> {
+                fragment = DashboardFragment()
+                supportActionBar?.title = "Dashboard"
+                navView.setCheckedItem(R.id.menu_dashboard)
+                selectedFragmentId = R.id.menu_dashboard
+            }
+
+
         }
         fragment?.let {
             replaceFragment(it)

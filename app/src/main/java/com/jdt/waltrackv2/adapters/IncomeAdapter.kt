@@ -31,7 +31,7 @@ class IncomeAdapter (
         holder.incomeTitle.text = currentItem.transactionName
         holder.incomeCategory.text = currentItem.transactionTag
         "${currentItem.transactionMonth} ${currentItem.transactionDay}, ${currentItem.transactionYear}".also { holder.incomeDate.text = it }
-        holder.incomeAmount.text = "-Php ${currentItem.transactionAmount}"
+        holder.incomeAmount.text = "+Php ${currentItem.transactionAmount}"
         holder.incomeRoot.rootView.setOnClickListener{_ ->
             val intent = Intent(context, ViewTransactionActivity::class.java)
             intent.putExtra("selectedTransaction", currentItem.transactionId)
