@@ -26,6 +26,7 @@ class TransactionViewModel (application: Application) : AndroidViewModel(applica
     fun getFilteredTransactions(type: String, walletId: Int?, year: Int?, month: String?, day: Int?): LiveData<List<TransactionTable>> {
         return repository.getFilteredTransactions(type, walletId, year, month, day)
     }
+
     fun addTransaction(transactionTable: TransactionTable){
         viewModelScope.launch(Dispatchers.IO){
             repository.addTransaction(transactionTable)
@@ -34,6 +35,10 @@ class TransactionViewModel (application: Application) : AndroidViewModel(applica
 
     fun getTransactionById(id: Int) : LiveData<TransactionTable>{
         return repository.getTransactionById(id)
+    }
+
+    fun getTotal(type: String) : LiveData<Double>{
+        return repository.getTotal(type)
     }
 
     fun deleteTransaction(transactionTable: TransactionTable) {

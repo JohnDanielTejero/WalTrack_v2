@@ -27,6 +27,10 @@ class TransactionRepository(private val transactionDao: TransactionDao) {
         return transactionDao.getTransactionById(id)
     }
 
+    fun getTotal(type: String): LiveData<Double>{
+        return transactionDao.getTotal(type)
+    }
+
     suspend fun deleteTransaction(transaction: TransactionTable){
         transactionDao.deleteTransaction(transaction)
     }

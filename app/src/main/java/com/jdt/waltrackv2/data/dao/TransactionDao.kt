@@ -65,6 +65,9 @@ interface TransactionDao {
     fun getTransactionsWithFilter(transactionType: String, walletId: Int?, year: Int?, month: String?, day: Int?): LiveData<List<TransactionTable>>
     @Query("SELECT * FROM transactions WHERE transactionId = :id LIMIT 1")
     fun getTransactionById(id: Int): LiveData<TransactionTable>
+
+    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE transactionType = :type")
+    fun getTotal(type: String) : LiveData<Double>
     @Delete
     suspend fun deleteTransaction(transaction: TransactionTable)
 

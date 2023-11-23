@@ -92,9 +92,6 @@ class DashboardFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
 
             loadData()
-            binding.balanceDisplay.removeView(balancePlaceholder.root)
-            binding.incomeDisplay.removeView(incomePlaceholder.root)
-            binding.expenseDisplay.removeView(expensePlaceholder.root)
 
             dataLoadingListener?.onDataLoadingFinished()
 
@@ -114,9 +111,27 @@ class DashboardFragment : Fragment() {
                 itemsPlaceholderBinding.root.visibility = View.GONE
 
                 binding.recentTransactions.visibility = View.VISIBLE
-                dataBalance = DashboardBalanceDisplayBinding.inflate(inflater, binding.balanceDisplay, true)
-                dataExpense = DashboardExpsenseDisplayBinding.inflate(inflater, binding.expenseDisplay, true)
-                dataIncome = DashboardIncomeDisplayBinding.inflate(inflater, binding.incomeDisplay, true)
+
+                transactionViewModel.getTotal("Expense").observe(viewLifecycleOwner){ expense ->
+
+                    val expenseData = expense ?: 0.0
+
+                    dataBalance = DashboardBalanceDisplayBinding.inflate(inflater, binding.balanceDisplay, true)
+                    dataExpense = DashboardExpsenseDisplayBinding.inflate(inflater, binding.expenseDisplay, true)
+                    dataIncome = DashboardIncomeDisplayBinding.inflate(inflater, binding.incomeDisplay, true)
+
+                    transactionViewModel.getTotal("Income").observe(viewLifecycleOwner){income ->
+                        val incomeData = income?: 0.0
+                        dataExpense.totalExpenseDisplay.text = "-Php $expenseData"
+                        dataIncome.totalIncomeDisplay.text = "+Php $incomeData"
+                        dataBalance.totalBalanceDisplay.text = "Php ${incomeData - expenseData}"
+                    }
+
+                }
+
+                binding.balanceDisplay.removeView(balancePlaceholder.root)
+                binding.incomeDisplay.removeView(incomePlaceholder.root)
+                binding.expenseDisplay.removeView(expensePlaceholder.root)
             }
         }
     }
