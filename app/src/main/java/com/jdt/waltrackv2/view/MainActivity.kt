@@ -129,7 +129,8 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
                 }
 
                 R.id.menu_share -> {
-                    //TODO: Installation Link
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/JohnDanielTejero/WalTrack_v2/blob/master/app/WalTrackv2.apk"))
+                    startActivity(intent)
                 }
 
 
