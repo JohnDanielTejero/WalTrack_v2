@@ -114,7 +114,7 @@ class DashboardFragment : Fragment() {
 
                 binding.recentTransactions.visibility = View.VISIBLE
 
-                transactionViewModel.getTotal("Expense").observe(viewLifecycleOwner){ expense ->
+                transactionViewModel.getTotal("Expense", null).observe(viewLifecycleOwner){ expense ->
 
                     val expenseData = expense ?: 0.0
 
@@ -122,7 +122,7 @@ class DashboardFragment : Fragment() {
                     dataExpense = DashboardExpsenseDisplayBinding.inflate(inflater, binding.expenseDisplay, true)
                     dataIncome = DashboardIncomeDisplayBinding.inflate(inflater, binding.incomeDisplay, true)
 
-                    transactionViewModel.getTotal("Income").observe(viewLifecycleOwner){income ->
+                    transactionViewModel.getTotal("Income", null).observe(viewLifecycleOwner){income ->
                         val incomeData = income?: 0.0
                         dataExpense.totalExpenseDisplay.text = "-Php $expenseData"
                         dataIncome.totalIncomeDisplay.text = "+Php $incomeData"

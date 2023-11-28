@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jdt.waltrackv2.adapters.WalletAdapter
+import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
 import com.jdt.waltrackv2.databinding.AddItemLayoutBinding
 import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
@@ -41,6 +42,7 @@ class WalletFragment : Fragment() {
     private lateinit var walletAdapter: WalletAdapter
     private lateinit var handleWalletEvents: ActivityResultLauncher<Intent>
     private lateinit var walletViewModel: WalletViewModel
+    private lateinit var transactionViewModel: TransactionViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -70,11 +72,11 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         walletViewModel = ViewModelProvider(this)[WalletViewModel::class.java]
-
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         val inflater = LayoutInflater.from(requireContext())
 
-        walletAdapter = WalletAdapter(requireContext(), walletViewModel, handleWalletEvents)
+        walletAdapter = WalletAdapter(requireContext(), walletViewModel, transactionViewModel, handleWalletEvents, viewLifecycleOwner)
         itemsPlaceholderBinding.root.visibility = View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
             loadData(inflater)

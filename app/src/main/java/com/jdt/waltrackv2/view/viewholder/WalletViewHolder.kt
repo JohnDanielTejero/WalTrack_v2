@@ -14,4 +14,5 @@ class WalletViewHolder (itemView :  View) : RecyclerView.ViewHolder(itemView){
     val walletDesc: TextView = itemView.findViewById(R.id.wallet_details)
     val walletDate: TextView = itemView.findViewById(R.id.wallet_transaction_date)
     val walletRoot: ConstraintLayout = itemView as ConstraintLayout
+    val walletBalance: TextView = itemView.findViewById(R.id.balance_amount)
 }

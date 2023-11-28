@@ -37,8 +37,8 @@ class TransactionViewModel (application: Application) : AndroidViewModel(applica
         return repository.getTransactionById(id)
     }
 
-    fun getTotal(type: String) : LiveData<Double>{
-        return repository.getTotal(type)
+    fun getTotal(type: String, wallet: Int?) : LiveData<Double>{
+        return repository.getTotal(type, wallet)
     }
 
     fun deleteTransaction(transactionTable: TransactionTable) {

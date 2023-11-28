@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wallet Watch</string>
+    <string name="app_name">Frugi</string>
     <string name="app_version">ver. 1.0.0</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="nav_open">nav_open</string>

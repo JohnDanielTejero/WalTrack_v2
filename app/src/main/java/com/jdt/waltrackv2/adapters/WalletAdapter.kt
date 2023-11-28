@@ -9,10 +9,15 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.jdt.waltrackv2.R
 import com.jdt.waltrackv2.data.model.WalletTable
+import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
+import com.jdt.waltrackv2.databinding.DashboardBalanceDisplayBinding
+import com.jdt.waltrackv2.databinding.DashboardExpsenseDisplayBinding
+import com.jdt.waltrackv2.databinding.DashboardIncomeDisplayBinding
 import com.jdt.waltrackv2.view.WalletEditActivity
 import com.jdt.waltrackv2.view.fragments.ItemActionsDialog
 import com.jdt.waltrackv2.view.viewholder.WalletViewHolder
@@ -20,7 +25,9 @@ import com.jdt.waltrackv2.view.viewholder.WalletViewHolder
 class WalletAdapter(
     private val context: Context,
     private val walletViewModel: WalletViewModel,
-    private val handleWalletEvents: ActivityResultLauncher<Intent>
+    private val transactionViewModel: TransactionViewModel,
+    private val handleWalletEvents: ActivityResultLauncher<Intent>,
+    private val viewLifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<WalletViewHolder>() {
     private var walletList = emptyList<WalletTable>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder {
@@ -51,6 +58,17 @@ class WalletAdapter(
                 intent.putExtra("selectedWallet", currentItem.walletId)
                 handleWalletEvents.launch(intent)
             }
+        }
+
+        transactionViewModel.getTotal("Expense", currentItem.walletId).observe(viewLifecycleOwner){ expense ->
+
+            val expenseData = expense ?: 0.0
+
+            transactionViewModel.getTotal("Income", currentItem.walletId).observe(viewLifecycleOwner){income ->
+                val incomeData = income?: 0.0
+                holder.walletBalance.text = "Php ${incomeData- expenseData}"
+            }
+
         }
     }
 

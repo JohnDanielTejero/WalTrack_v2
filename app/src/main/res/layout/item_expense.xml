@@ -4,7 +4,7 @@
     android:layout_height="125sp"
     android:clickable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10sp">
+    android:padding="5sp">
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
                 android:textColor="?customTitleColor"
                 android:textSize="15sp"
                 android:layout_marginBottom="2sp"
-                android:layout_width="80sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/expense_wallet"
@@ -93,7 +93,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/expense_date_and_type"
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="match_parent"
             app:layout_constraintStart_toEndOf="@id/expense_fields"
             app:layout_constraintEnd_toEndOf="parent"
