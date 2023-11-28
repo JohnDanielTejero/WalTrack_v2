@@ -148,7 +148,7 @@ class IncomeFragment : Fragment() {
                                     }
                             }else {
                                 transactionViewModel.getFilteredTransactions(
-                                    "Expense",
+                                    "Income",
                                     null,
                                     year,
                                     month,
