@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
                 }
 
                 R.id.menu_share -> {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/JohnDanielTejero/WalTrack_v2/blob/master/app/WalTrackv2.apk"))
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.dropbox.com/scl/fi/kvw8enhoo9owkli6po15n/WalTrackv2.apk?rlkey=qb46hjrntln10yhpgf6usdveq&dl=0"))
                     startActivity(intent)
                 }
 
