@@ -5,6 +5,7 @@
     <attr name = "customTitleColor" format="string"/>
     <attr name = "customTitleColorAlt" format="string"/>
     <attr name = "customRippleBgColor" format="color"/>
+    <attr name = "customRippleBgColorAlt" format="color"/>
     <attr name="customBackdropGradient" format="string"/>
     <attr name="customButtonShade" format="string"/>
     <attr name="customRippleColorAlt" format="color"/>
@@ -13,4 +14,5 @@
     <attr name="placeholder_texts" format="color"/>
     <attr name="income_color" format="color"/>
     <attr name="expense_color" format="color"/>
+
 </resources>

@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.lifecycle.ViewModelProvider
 import com.jdt.waltrackv2.R
+import com.jdt.waltrackv2.adapters.setupDropdownAdapter
 import com.jdt.waltrackv2.data.model.TransactionTable
 import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
@@ -42,7 +43,7 @@ class EditTransactionActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         val actionbar = supportActionBar
-        actionbar?.title = "Add Transaction"
+        actionbar?.title = "Edit Transaction"
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setDisplayShowTitleEnabled(true)
 
@@ -140,7 +141,24 @@ class EditTransactionActivity : AppCompatActivity() {
             walletViewModel.getWalletById(transaction.walletId).observe(this){
                 binding.transactionWallet.setText(it.walletName)
             }
+            binding.transactionType.setupDropdownAdapter(
+                this, R.layout.dropdown_item,
+                resources.getStringArray(R.array.transaction_type)
+            )
 
+            binding.transactionCategory.setupDropdownAdapter(
+                this,
+                R.layout.dropdown_item,
+                resources.getStringArray(R.array.transaction_tags)
+            )
+
+            walletViewModel.wallets.observe(this){
+                binding.transactionWallet.setupDropdownAdapter(
+                    this,
+                    R.layout.dropdown_item,
+                    it.map { i -> i.walletName }.toTypedArray()
+                )
+            }
             binding.datePickerButton.text =  "${transaction.transactionMonth} ${transaction.transactionDay} ${transaction.transactionYear}"
         }
     }

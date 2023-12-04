@@ -16,10 +16,12 @@
         <item name="customTitleColor">?colorOnPrimary</item>
         <item name="customTitleColorAlt">?colorPrimary</item>
         <item name="customRippleBgColor">?colorSecondaryVariant</item>
+        <item name="customRippleBgColorAlt">#222121</item>
         <item name="customBackdropGradient">?colorSecondaryVariant</item>
         <item name="customRippleColorAlt">@color/ripple_bg_dark</item>
         <item name="customButtonShade">?colorSecondary</item>
 
+        <item name="main_background">#121111</item>
         <item name ="income_color">#41F100</item>
         <item name="expense_color">#ED0A0A</item>
     </style>

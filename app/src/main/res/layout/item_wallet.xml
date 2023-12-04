@@ -11,7 +11,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/display_ripple_click">
+        android:background="@drawable/transaction_item_holder_bg">
         <RelativeLayout
             android:id="@+id/wallet_icon"
             app:layout_constraintTop_toTopOf="parent"

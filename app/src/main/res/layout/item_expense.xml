@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10sp"
-        android:background="@drawable/display_ripple_click">
+        android:background="@drawable/transaction_item_holder_bg">
 
         <RelativeLayout
             android:id="@+id/expense_icon"

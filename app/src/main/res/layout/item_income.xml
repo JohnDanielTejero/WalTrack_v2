@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5sp"
-        android:background="@drawable/display_ripple_click">
+        android:background="@drawable/transaction_item_holder_bg">
         <RelativeLayout
             android:id="@+id/income_icon"
             app:layout_constraintTop_toTopOf="parent"
