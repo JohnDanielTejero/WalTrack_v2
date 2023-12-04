@@ -9,7 +9,7 @@
         <item name="colorSecondaryVariant">#272626</item>
         <item name="colorOnSecondary">#cc80ba</item>
 
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">#121111</item>
         <!-- Customize your theme here. -->
         <item name="formBackground">?colorPrimaryVariant</item>
         <item name="formShadow">?colorPrimary</item>

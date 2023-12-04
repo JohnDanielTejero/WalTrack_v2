@@ -6,6 +6,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -144,10 +145,11 @@ class MainActivity : AppCompatActivity(), OnDataLoading {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //val drawable = actionBarDrawerToggle.drawerArrowDrawable
-        //drawable.color = ContextCompat.getColor(this, R.color.white)
+
+        val typedValue = TypedValue()
+        theme.resolveAttribute(R.attr.customTitleColor, typedValue, true)
+        val color = typedValue.data
         val drawable = actionBarDrawerToggle.drawerArrowDrawable
-        val color = ContextCompat.getColor(this, R.color.white)
         drawable.colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
