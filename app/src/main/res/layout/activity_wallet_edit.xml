@@ -8,16 +8,16 @@
     android:background="@drawable/main_background"
     tools:context=".view.WalletEditActivity">
     <androidx.appcompat.widget.Toolbar
-        app:titleTextColor="@color/white"
+        app:titleTextColor="?customTitleColor"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/toolbar"
-        android:background="?colorPrimary"
+        android:background="?main_background"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 
     <LinearLayout
-        android:background="?formBackground"
+
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"

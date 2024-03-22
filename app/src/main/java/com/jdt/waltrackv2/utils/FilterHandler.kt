@@ -18,7 +18,6 @@ import com.jdt.waltrackv2.databinding.FilterLayoutWalletVerBinding
 import java.util.Calendar
 import java.util.Locale
 
-//TODO: Add Wallet Item as Parameter
 class FilterHandler(private val filterLayoutBinding: FilterLayoutBinding, context: Context, cb : (()->Unit)? = null, private val wallets: List<WalletTable>?= null) {
     private var isFilterToggled: Boolean = false
     init {

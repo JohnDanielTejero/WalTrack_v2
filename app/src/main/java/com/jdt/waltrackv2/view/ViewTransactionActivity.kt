@@ -3,6 +3,7 @@ package com.jdt.waltrackv2.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -55,7 +56,9 @@ class ViewTransactionActivity : AppCompatActivity() {
         val navigationIcon = binding.toolbar.navigationIcon
 
         navigationIcon?.let {
-            val color = ContextCompat.getColor(this, R.color.white)
+            val typedValue = TypedValue()
+            theme.resolveAttribute(R.attr.customTitleColor, typedValue, true)
+            val color = typedValue.data
             DrawableCompat.setTint(it, color)
             binding.toolbar.navigationIcon = it
         }

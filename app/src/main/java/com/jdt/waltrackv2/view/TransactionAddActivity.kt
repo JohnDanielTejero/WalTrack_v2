@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -47,7 +48,9 @@ class TransactionAddActivity : AppCompatActivity() {
         val navigationIcon = binding.toolbar.navigationIcon
 
         navigationIcon?.let {
-            val color = ContextCompat.getColor(this, R.color.white)
+            val typedValue = TypedValue()
+            theme.resolveAttribute(R.attr.customTitleColor, typedValue, true)
+            val color = typedValue.data
             DrawableCompat.setTint(it, color)
             binding.toolbar.navigationIcon = it
         }

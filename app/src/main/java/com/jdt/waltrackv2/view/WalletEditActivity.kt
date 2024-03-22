@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.util.TypedValue
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -41,7 +42,9 @@ class WalletEditActivity : AppCompatActivity() {
         val navigationIcon = binding.toolbar.navigationIcon
 
         navigationIcon?.let {
-            val color = ContextCompat.getColor(this, R.color.white)
+            val typedValue = TypedValue()
+            theme.resolveAttribute(R.attr.customTitleColor, typedValue, true)
+            val color = typedValue.data
             DrawableCompat.setTint(it, color)
             binding.toolbar.navigationIcon = it
         }

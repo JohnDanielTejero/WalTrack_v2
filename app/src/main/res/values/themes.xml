@@ -10,13 +10,14 @@
         <item name="colorSecondaryVariant">#cc80ba</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?colorPrimary</item>
+        <item name="android:statusBarColor">#FEF6FF</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="formBackground">?colorOnPrimary</item>
         <!-- Customize your theme here. -->
         <item name="formShadow">?colorPrimary</item>
         <item name="customTitleColor">?colorPrimary</item>
         <item name="customTitleColorAlt">?colorPrimary</item>
-        <item name="customRippleBgColor">#fafafa</item>
+        <item name="customRippleBgColor">#FDF1FF</item>
         <item name="customRippleBgColorAlt">#FEFFFF</item>
         <item name="customRippleColorAlt">@color/ripple_bg_light</item>
         <item name="customBackdropGradient">?colorPrimary</item>
@@ -28,6 +29,7 @@
     </style>
     <!-- Base application theme. -->
     <style name="Base.Theme.WalTrackV2" parent="Theme.Material3.DayNight.NoActionBar">
+
         <!-- Primary brand color. -->
         <item name="colorPrimary">#62115d</item>
         <item name="colorPrimaryVariant">#ad5a9c</item>
@@ -37,13 +39,14 @@
         <item name="colorSecondaryVariant">#cc80ba</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?colorPrimary</item>
+        <item name="android:statusBarColor">#FEF6FF</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="formBackground">?colorOnPrimary</item>
         <!-- Customize your theme here. -->
         <item name="formShadow">?colorPrimary</item>
         <item name="customTitleColor">?colorPrimary</item>
         <item name="customTitleColorAlt">?colorPrimary</item>
-        <item name="customRippleBgColor">#fafafa</item>
+        <item name="customRippleBgColor">#FDF1FF</item>
         <item name="customRippleBgColorAlt">#FEFFFF</item>
         <item name="customRippleColorAlt">@color/ripple_bg_light</item>
         <item name="customBackdropGradient">?colorPrimary</item>

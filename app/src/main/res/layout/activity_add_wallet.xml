@@ -8,11 +8,11 @@
     android:background="@drawable/main_background"
     tools:context=".view.AddWalletActivity">
     <androidx.appcompat.widget.Toolbar
-        app:titleTextColor="?colorOnPrimary"
+        app:titleTextColor="?customTitleColor"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?colorPrimary"
+        android:background="?main_background"
         android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:background="?formBackground"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"

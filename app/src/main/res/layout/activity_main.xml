@@ -10,6 +10,7 @@
     tools:openDrawer="start"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -26,18 +27,18 @@
                 android:layout_height="wrap_content">
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
-                    app:titleTextColor="@color/white"
+                    app:titleTextColor="?customTitleColor"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
-                    android:background="?colorPrimary">
+                    android:background="?main_background">
                     <FrameLayout
                         android:layout_width="30sp"
                         android:layout_height="30sp"
                         android:layout_gravity="end"
                         android:layout_marginEnd="10dp">
                         <ImageView
-                            app:tint="@color/white"
+                            app:tint="?customTitleColor"
                             android:id="@+id/iconImageView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -61,8 +62,7 @@
             app:layout_constraintVertical_bias="0"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:navGraph = "@navigation/nav_graph"
-            />
+            app:navGraph = "@navigation/nav_graph"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
