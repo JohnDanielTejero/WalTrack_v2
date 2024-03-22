@@ -42,6 +42,38 @@
                 android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tansfer_button"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10sp"
+            android:paddingVertical="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                app:tint="?customTitleColor"
+                android:id="@+id/transfer_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.01"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:src="@drawable/ic_transfer"
+                />
+            <TextView
+                android:textColor="?customTitleColor"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/transfer_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                android:text="Transfer Balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/delete_button"
             android:clickable="true"
             android:orientation="horizontal"

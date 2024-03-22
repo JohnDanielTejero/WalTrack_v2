@@ -53,6 +53,7 @@ class WalletAdapter(
                 Toast.makeText(context, "wallet ${currentItem.walletName} deleted!", Toast.LENGTH_SHORT).show()
                 walletViewModel.deleteWallet(currentItem)
             }
+
             itemActionsDialog.setEditClickListener {
                 val intent = Intent(context, WalletEditActivity::class.java)
                 intent.putExtra("selectedWallet", currentItem.walletId)

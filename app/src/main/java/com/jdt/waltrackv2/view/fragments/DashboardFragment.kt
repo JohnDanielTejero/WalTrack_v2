@@ -18,14 +18,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jdt.waltrackv2.adapters.TransactionAdapter
 import com.jdt.waltrackv2.data.view_model.TransactionViewModel
 import com.jdt.waltrackv2.data.view_model.WalletViewModel
+import com.jdt.waltrackv2.databinding.AddItemLayoutBinding
 import com.jdt.waltrackv2.databinding.BalanceShimmerPlaceholderBinding
 import com.jdt.waltrackv2.databinding.DashboardBalanceDisplayBinding
 import com.jdt.waltrackv2.databinding.DashboardIncomeDisplayBinding
 import com.jdt.waltrackv2.databinding.DashboardExpsenseDisplayBinding
 import com.jdt.waltrackv2.databinding.FragmentDashboardBinding
 import com.jdt.waltrackv2.databinding.PlaceholderTransactionsBinding
+import com.jdt.waltrackv2.utils.ActionButtonHandler
 import com.jdt.waltrackv2.utils.OnDataLoading
 import com.jdt.waltrackv2.utils.RenderElementHandler
+import com.jdt.waltrackv2.view.TransactionAddActivity
+
 class DashboardFragment : Fragment() {
 
 
@@ -33,7 +37,8 @@ class DashboardFragment : Fragment() {
 
     //dashboard binding
     private lateinit var binding: FragmentDashboardBinding
-
+    private lateinit var addItemButton: AddItemLayoutBinding
+    private lateinit var actionButtonHandler: ActionButtonHandler
     //data to be displayed at the top:
     private lateinit var dataBalance: DashboardBalanceDisplayBinding
     private  lateinit var dataExpense: DashboardExpsenseDisplayBinding
@@ -129,6 +134,12 @@ class DashboardFragment : Fragment() {
                         dataBalance.totalBalanceDisplay.text = "Php ${incomeData - expenseData}"
                     }
 
+                }
+                if(!::addItemButton.isInitialized){
+                    addItemButton = AddItemLayoutBinding.inflate(inflater, binding.addItemContainer, true)
+                    actionButtonHandler = ActionButtonHandler(addItemButton.root,
+                        Intent(requireContext(), TransactionAddActivity::class.java),
+                        activityResult)
                 }
 
                 binding.balanceDisplay.removeView(balancePlaceholder.root)

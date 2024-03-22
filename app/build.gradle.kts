@@ -12,8 +12,8 @@ android {
         applicationId = "com.jdt.waltrackv2"
         minSdk = 25
         this.targetSdk = 34
-        versionCode = 2;0;0
-        versionName = "2.0.0"
+        versionCode = 2;0;1
+        versionName = "2.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.core:core-ktx:+")
     val room_version = "2.6.0"
 
     implementation("androidx.room:room-runtime:$room_version")
