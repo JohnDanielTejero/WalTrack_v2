@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context=".view.MainActivity"
     android:background="?main_background"
+    tools:openDrawer="start"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_main"
