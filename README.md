@@ -2,7 +2,7 @@
 A simple expense tracking application made with kotlin.
 
 <b> Install the app:</b> <br>
-[![WalTrack v2 - APK](https://img.shields.io/badge/WalTrack_v2-APK-2ea44f?logo=android+apk)](https://www.dropbox.com/scl/fi/kvw8enhoo9owkli6po15n/WalTrackv2.apk?rlkey=qb46hjrntln10yhpgf6usdveq&dl=0)
+[![WalTrack v2 - APK](https://img.shields.io/badge/WalTrack_v2-APK-2ea44f?logo=android+apk)](https://www.dropbox.com/scl/fi/834gno7fsr9cjxgzriv1p/Frugi.apk?rlkey=kaoxarpznnliejfvp8peitlf0&dl=0)
 
 
 # Made With:
